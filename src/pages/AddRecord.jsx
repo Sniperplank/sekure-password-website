@@ -24,10 +24,6 @@ function AddRecord() {
         navigate('/list')
     }
 
-    const goBack = async () => {
-        navigate('/list')
-    }
-
     const handleChange = (e) => {
         setRecordDetails({ ...recordDetails, [e.target.name]: e.target.value })
     }
@@ -43,27 +39,14 @@ function AddRecord() {
         return password
     };
 
-    const autofillFields = () => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs.length > 0) {
-                const activeTab = tabs[0]
-                const url = activeTab.url || ''
-                const title = activeTab.title || ''
-                const generatedPassword = generatePassword()
-
-                setRecordDetails((prevDetails) => ({
-                    ...prevDetails,
-                    title: title,
-                    login: user.result.email,
-                    password: generatedPassword,
-                    login_url: url,
-                }))
-
-                console.log(`Autofilled: Title - ${title}, URL - ${url}`)
-            } else {
-                console.error('No active tab found to autofill fields.')
-            }
-        })
+    const autofillPassword = () => {
+        const generatedPassword = generatePassword()
+        setRecordDetails((prevDetails) => ({
+            ...prevDetails,
+            login: user.result.email,
+            password: generatedPassword,
+        }))
+        console.log('sa')
     }
 
     return (
@@ -71,19 +54,16 @@ function AddRecord() {
             <Typography variant='h5' color='primary'>New Record</Typography>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <Stack spacing={3}>
-                <StyledInput variant='outlined' name='title' label='Title' onChange={handleChange} />
-                <StyledInput variant='outlined' name='login' label='Login' onChange={handleChange} />
+                <StyledInput variant='outlined' name='title' label='Title' value={recordDetails.title} onChange={handleChange} />
+                <StyledInput variant='outlined' name='login' label='Login' value={recordDetails.login} onChange={handleChange} />
                 <Stack direction='row' spacing={1}>
-                    <StyledInput variant='outlined' name='password' label='Password' onChange={handleChange} type={isHidden ? 'password' : 'text'} sx={{ width: '90%' }} />
+                    <StyledInput variant='outlined' name='password' label='Password' value={recordDetails.password} onChange={handleChange} type={isHidden ? 'password' : 'text'} sx={{ width: '90%' }} />
                     {isHidden ? <VisibilityOffIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} /> : <VisibilityIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} />}
                 </Stack>
-                <StyledInput variant='outlined' name='login_url' label='URL' onChange={handleChange} />
+                <StyledInput variant='outlined' name='login_url' label='URL' value={recordDetails.login_url} onChange={handleChange} />
             </Stack>
-            <Button onClick={autofillFields} sx={{}}>Generate password and autofill</Button>
-            <Stack direction='row' spacing={2} justifyContent='space-evenly'>
-                <Button onClick={goBack} sx={{ width: '50%' }}>Back</Button>
-                <StyledButton variant='contained' onClick={handleAddRecord} sx={{ width: '50%' }}>Add</StyledButton>
-            </Stack>
+            <Button onClick={autofillPassword} sx={{}}>Generate password and autofill</Button>
+            <StyledButton variant='contained' onClick={handleAddRecord} sx={{ width: '20%', alignSelf: 'center' }}>Add</StyledButton>
         </Stack>
     )
 }
