@@ -7,7 +7,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')) || null)
 
     const value = {
         user,

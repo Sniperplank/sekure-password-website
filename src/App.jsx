@@ -15,6 +15,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import { useEffect, useState } from 'react'
 import { useAuth } from './contexts/AuthContext'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   const { user, setUser } = useAuth()
@@ -73,6 +74,7 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route path='/signin' element={<Singin />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/add' element={<AddRecord />} />
           <Route path='/list' element={<RecordsList />} />
           <Route path='/details' element={<RecordDetails />} />
