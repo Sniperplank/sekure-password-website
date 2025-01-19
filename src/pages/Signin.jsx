@@ -21,15 +21,6 @@ function Singin() {
         setIsHidden(prev => !prev)
     }
 
-    // Check for existing user profile on component mount
-    useEffect(() => {
-        const result = localStorage.getItem('profile')
-        if (result) {
-            console.log('User already logged in:', result)
-            navigate('/list')
-        }
-    }, [navigate])
-
     const switchMode = () => {
         setIsSignup((prev) => !prev)
     }

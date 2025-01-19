@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Singin from './pages/Signin'
 import AddRecord from './pages/AddRecord'
 import RecordsList from './pages/RecordsList'
@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('profile')))
-  })
+  }, [navigate])
 
   // Handle scroll to top
   const handleScroll = () => {
@@ -65,7 +65,7 @@ function App() {
           <StyledButton onClick={logout} startIcon={<LogoutIcon color='error' />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Logout</StyledButton>
           {
             showScrollTop && (
-              <Button onClick={scrollToTop} sx={{ position: 'fixed', bottom: 20, left: '20%', backgroundColor: 'primary.main', '&:hover': { backgroundColor: 'primary.dark' }, }} variant="contained" > <ArrowUpwardIcon /> </Button>
+              <Button onClick={scrollToTop} sx={{ position: 'fixed', bottom: 20, left: '20vp', backgroundColor: 'primary.main', '&:hover': { backgroundColor: 'primary.dark' }, }} variant="contained" > <ArrowUpwardIcon /> </Button>
             )
           }
         </Stack>}

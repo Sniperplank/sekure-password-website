@@ -10,7 +10,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 function AddRecord() {
     const { user } = useAuth()
-    const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '', userEmail: user.result.email })
+    const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '', userEmail: user?.result.email })
     const navigate = useNavigate()
     const [isHidden, setIsHidden] = useState(true)
 
@@ -43,7 +43,7 @@ function AddRecord() {
         const generatedPassword = generatePassword()
         setRecordDetails((prevDetails) => ({
             ...prevDetails,
-            login: user.result.email,
+            login: user?.result.email,
             password: generatedPassword,
         }))
         console.log('sa')

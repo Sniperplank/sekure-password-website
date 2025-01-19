@@ -28,9 +28,9 @@ function RecordsList() {
     )
   })
 
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [])
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem('profile')))
+  // })
 
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function RecordsList() {
       setRecords(records.data)
     }
     getRecords()
-  }, [user, update, location])
+  }, [user])
 
   return (
     <Stack spacing={3}>

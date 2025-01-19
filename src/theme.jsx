@@ -17,8 +17,5 @@ export const theme = createTheme({
             main: '#eaf2f6',
             input: 'white'
         },
-        body: {
-            main: '#0e0b04'
-        },
     }
 })
