@@ -55,7 +55,7 @@ function App() {
     navigate('/')
   }
 
-  const shouldShowNav = user && location.pathname !== '/'
+  const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password'
 
   return (
     <Stack spacing={5}>
