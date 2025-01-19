@@ -59,13 +59,13 @@ function App() {
 
   return (
     <Stack spacing={5}>
-      <Stack direction='row' justifyContent='space-between'>
+      {shouldShowNav && <Stack direction='row' justifyContent='space-between'>
         <Stack direction='row' spacing={1}>
           <ShieldOutlinedIcon fontSize='large' color='primary' />
           <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
         </Stack>
         <SettingsIcon fontSize='large' color='primary' />
-      </Stack>
+      </Stack>}
       <Stack direction='row' spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
           <Stack spacing={3} width='20%'>
