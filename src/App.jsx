@@ -18,9 +18,11 @@ import { useAuth } from './contexts/AuthContext'
 import ResetPassword from './pages/ResetPassword'
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import SettingsIcon from '@mui/icons-material/Settings'
+import { useRecords } from './contexts/RecordsContext'
 
 function App() {
   const { user, setUser } = useAuth()
+  const { records, setRecords } = useRecords()
   const navigate = useNavigate()
   const location = useLocation()
   const [showScrollTop, setShowScrollTop] = useState(false)
@@ -52,6 +54,8 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem('profile')
+    setUser(null)
+    setRecords(null)
     navigate('/')
   }
 

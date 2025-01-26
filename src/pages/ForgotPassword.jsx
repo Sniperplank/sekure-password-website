@@ -12,7 +12,7 @@ function ForgotPassword() {
 
     const handlePasswordResetRequest = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/user/forgot-password', { email })
+            const response = await axios.post('https://sekure-password-server.vercel.app/user/forgot-password', { email })
             setMessage(response.data.message)
         } catch (error) {
             setMessage(error.response?.data?.message || 'Something went wrong.')
@@ -26,7 +26,7 @@ function ForgotPassword() {
             <StyledInput variant="outlined" label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <StyledButton variant="contained" color="primary" onClick={handlePasswordResetRequest}>Send Reset Link</StyledButton>
             <Button onClick={() => { navigate(-1) }} >Back</Button>
-            {message && <Typography variant="body2">{message}</Typography>}
+            {message && <Typography variant="body1">{message}</Typography>}
         </Stack>
     )
 }

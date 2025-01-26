@@ -27,13 +27,15 @@ function ResetPassword() {
             return
         }
         try {
-            const response = await axios.post('http://localhost:5000/auth/reset-password', {
+            const response = await axios.post('http://localhost:5000/user/reset-password', {
                 token,
                 newPassword,
             })
+            console.log(response)
             setMessage(response.data.message)
             setTimeout(() => navigate('/signin'), 3000); // Redirect after success
         } catch (error) {
+            console.log(error)
             setMessage(error.response?.data?.message || 'Something went wrong.')
         }
     }
@@ -48,7 +50,7 @@ function ResetPassword() {
             <StyledInput variant='outlined' name='confirmPassword' label='Confirm Main Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type={isHidden ? 'password' : 'text'} />
             {error && <Typography color="error">{error}</Typography>}
             <StyledButton variant="contained" color="primary" onClick={handleResetPassword}> Reset Password </StyledButton>
-            {message && <Typography variant="body2" color="textSecondary">{message}</Typography>}
+            {message && <Typography variant="body1">{message}</Typography>}
         </Stack>
     )
 }
