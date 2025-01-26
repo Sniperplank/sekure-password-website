@@ -5,9 +5,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { CardBox } from '../StyledComponents/CardBox';
 import { StyledInput } from '../StyledComponents/StyledInput';
+import { useRecords } from '../contexts/RecordsContext';
 
 function RecordsList() {
-  const [records, setRecords] = useState({})
+  const { records, setRecords } = useRecords()
   const { user, setUser } = useAuth()
   const [update, setUpdate] = useState(0)
   const location = useLocation()
@@ -22,31 +23,42 @@ function RecordsList() {
     navigate('/details', { state: { record: record } })
   }
 
-  const filteredRecords = Object.entries(records).filter(record => {
-    return (
-      record[1].title.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  })
-
-  // useEffect(() => {
-  //   setUser(JSON.parse(localStorage.getItem('profile')))
+  // const filteredRecords = Object.entries(records).filter(record => {
+  //   return (
+  //     record[1].title.toLowerCase().includes(searchQuery.toLowerCase())
+  //   )
   // })
+
+  const filteredRecords = records
+    ? Object.entries(records).filter(([key, value]) =>
+      value.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : [];
 
 
   useEffect(() => {
     async function getRecords() {
-      console.log(user)
-      const records = await axios.get('http://localhost:5000/record?email=' + user?.result.email)
-      setRecords(records.data)
+      if (user && !records) {
+        try {
+          console.log(user)
+          const keyString = btoa(String.fromCharCode(...user?.secretKey.data))
+          const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}&key=${encodeURIComponent(keyString)}`)
+          // const records = await axios.get('https://sekure-password-server.vercel.app/record?email=' + user?.result.email)
+          setRecords(response.data)
+        } catch (error) {
+          console.error('Error fetching records:', error)
+        }
+      }
     }
+    console.log(records)
     getRecords()
-  }, [user])
+  }, [user, records, setRecords])
 
   return (
     <Stack spacing={3}>
       <Typography variant='h5' color='primary'>Your Records</Typography>
       <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-      <StyledInput variant='outlined' label={'Search ' + records.length + ' records by title'} type='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+      <StyledInput variant='outlined' label={`Search ${records ? records.length : 0} records by title`} type='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
       {
         records === undefined || records === null ?
