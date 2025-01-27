@@ -37,12 +37,12 @@ function RecordsList() {
 
 
   useEffect(() => {
+    axios.defaults.withCredentials = true
     async function getRecords() {
       if (user && !records) {
         try {
           console.log(user)
-          const keyString = btoa(String.fromCharCode(...user?.secretKey.data))
-          const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}&key=${encodeURIComponent(keyString)}`)
+          const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}`)
           // const records = await axios.get('https://sekure-password-server.vercel.app/record?email=' + user?.result.email)
           setRecords(response.data)
         } catch (error) {
