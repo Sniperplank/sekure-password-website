@@ -7,8 +7,10 @@ import { StyledButton } from '../StyledComponents/StyledButton'
 import { useAuth } from '../contexts/AuthContext'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { useRecords } from '../contexts/RecordsContext'
 
 function AddRecord() {
+    const { records, setRecords } = useRecords()
     const { user } = useAuth()
     const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '', userEmail: user?.result.email })
     const navigate = useNavigate()
@@ -19,9 +21,9 @@ function AddRecord() {
     }
 
     const handleAddRecord = async () => {
-        await axios.post('http://localhost:5000/record', recordDetails)
-        // await axios.post('https://sekure-password-server.vercel.app/record', recordDetails)
-        console.log('record added')
+        // await axios.post('http://localhost:5000/record', recordDetails)
+        await axios.post('https://sekure-password-server.vercel.app/record', { ...recordDetails, encryptedKey: user?.encryptedSecretKey })
+        setRecords(null)
         navigate('/list')
     }
 
@@ -47,7 +49,6 @@ function AddRecord() {
             login: user?.result.email,
             password: generatedPassword,
         }))
-        console.log('sa')
     }
 
     return (

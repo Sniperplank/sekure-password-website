@@ -6,8 +6,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import axios from 'axios'
+import { useRecords } from '../contexts/RecordsContext'
 
 function RecordDetails() {
+    const { records, setRecords } = useRecords()
     const location = useLocation()
     const record = location.state?.record
     const [updatedRecord, setUpdatedRecord] = useState({ ...record })
@@ -41,6 +43,7 @@ function RecordDetails() {
     const deleteRecord = async () => {
         try {
             await axios.delete('https://sekure-password-server.vercel.app/record?id=' + record._id)
+            setRecords(null)
             navigate('/list')
         } catch (error) {
             console.log(error)
