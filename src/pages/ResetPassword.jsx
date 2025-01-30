@@ -27,15 +27,17 @@ function ResetPassword() {
             return
         }
         try {
-            const response = await axios.post('http://localhost:5000/user/reset-password', {
+            // const response = await axios.post('http://localhost:5000/user/reset-password', {
+            //     token,
+            //     newPassword,
+            // })
+            const response = await axios.post('https://sekure-password-server.vercel.app/user/reset-password', {
                 token,
                 newPassword,
             })
-            console.log(response)
             setMessage(response.data.message)
             setTimeout(() => navigate('/signin'), 3000); // Redirect after success
         } catch (error) {
-            console.log(error)
             setMessage(error.response?.data?.message || 'Something went wrong.')
         }
     }

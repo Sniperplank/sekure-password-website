@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Divider, Stack, Typography } from '@mui/material'
+import { CircularProgress, Divider, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,14 +10,8 @@ import { useRecords } from '../contexts/RecordsContext';
 function RecordsList() {
   const { records, setRecords } = useRecords()
   const { user, setUser } = useAuth()
-  const [update, setUpdate] = useState(0)
-  const location = useLocation()
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
-
-  const updatePage = () => {
-    setUpdate(prev => prev + 1)
-  }
 
   const handleRecordDetails = (record) => {
     navigate('/details', { state: { record: record } })
@@ -37,20 +31,17 @@ function RecordsList() {
 
 
   useEffect(() => {
-    axios.defaults.withCredentials = true
     async function getRecords() {
       if (user && !records) {
         try {
-          console.log(user)
-          const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}`)
-          // const records = await axios.get('https://sekure-password-server.vercel.app/record?email=' + user?.result.email)
+          // const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
+          const response = await axios.get(`https://sekure-password-server.vercel.app/record?email=${user?.result.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
           setRecords(response.data)
         } catch (error) {
           console.error('Error fetching records:', error)
         }
       }
     }
-    console.log(records)
     getRecords()
   }, [user, records, setRecords])
 
