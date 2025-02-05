@@ -7,8 +7,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import axios from 'axios'
 import { useRecords } from '../contexts/RecordsContext'
+import { useAuth } from '../contexts/AuthContext'
 
 function RecordDetails() {
+    const { user } = useAuth()
     const { records, setRecords } = useRecords()
     const location = useLocation()
     const record = location.state?.record
@@ -32,8 +34,10 @@ function RecordDetails() {
 
     const saveChanges = async () => {
         try {
-            await axios.patch('https://sekure-password-server.vercel.app/record/', updatedRecord)
+            await axios.patch('https://sekure-password-server.vercel.app/record/', { record: updatedRecord, encryptedKey: user?.encryptedSecretKey })
             setIsChanged(false)
+            setRecords(null)
+            navigate(-1)
             initialRecord.current = { ...updatedRecord }
         } catch (error) {
             console.log("an error occurred!", error)
