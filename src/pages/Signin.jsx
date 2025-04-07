@@ -26,6 +26,7 @@ function Singin() {
     }
 
     const handleSubmit = (e) => {
+        setError("")
         e.preventDefault()
         if (isSignup) {
             signup(formData, navigate, setError)
