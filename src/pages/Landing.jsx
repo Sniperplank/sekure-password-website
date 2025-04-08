@@ -4,6 +4,8 @@ import { StyledButton } from '../StyledComponents/StyledButton'
 import { Box, Divider, Stack, Typography } from '@mui/material'
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import LockSVG from '../assets/locksvg.svg'
+import MusclesLock from '../assets/musclesLock.svg'
+import ExtensionLock from '../assets/extensionLock.svg'
 import { CardBox } from '../StyledComponents/CardBox'
 import LockIcon from '@mui/icons-material/Lock'
 import PasswordIcon from '@mui/icons-material/Password'
@@ -27,6 +29,11 @@ function Landing() {
         navigate('/signin')
     }
 
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
+
     return (
         <Stack spacing={20}>
             <Stack direction='row' justifyContent='space-between'>
@@ -36,7 +43,7 @@ function Landing() {
                 </Stack>
                 <StyledButton variant='contained' color='primary' onClick={handleGetStarted} sx={{ height: 40 }}>Get Started</StyledButton>
             </Stack>
-            <Stack direction='row' justifyContent='space-between'>
+            <Stack direction='row' justifyContent='space-between' sx={{ pt: 10, pb: 10, borderBottom: 'solid' }}>
                 <Stack spacing={4} width='50%'>
                     <Typography variant='h3'>Keep Your Passwords Safe and Secure</Typography>
                     <Typography variant='h6' sx={{ opacity: '75%' }}>Never forget a password again. Store, generate, and manage all your passwords in one secure vault</Typography>
@@ -45,7 +52,15 @@ function Landing() {
                         <StyledButton variant='outlined' color='primary' onClick={handleLearnMore} sx={{ color: 'text.main', textTransform: 'none' }}>Learn More</StyledButton>
                     </Stack>
                 </Stack>
-                <img src={LockSVG} width={350} height={350} />
+                <img src={MusclesLock} width={550} height={300} />
+            </Stack>
+            <Stack direction='row' justifyContent='space-between' sx={{ pt: 10, pb: 10, borderBottom: 'solid' }}>
+                <img src={ExtensionLock} width={350} height={350} />
+                <Stack spacing={4} width='50%'>
+                    <Typography variant='h4'>Get the extension to start signing into websites faster</Typography>
+                    <Typography variant='body1' sx={{ opacity: '75%' }}>Click the button below to get detailed instructions on how to install the extension to your chrome</Typography>
+                    <StyledButton variant='contained' color='primary' sx={{ width: '50%' }} onClick={() => { openInNewTab('https://github.com/Sniperplank/SekurePassword') }}>Get Extension</StyledButton>
+                </Stack>
             </Stack>
             <Stack spacing={5} ref={ref}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>Why Choose Sekure Password?</Typography>
