@@ -8,21 +8,24 @@ import ForgotPassword from './pages/ForgotPassword'
 import Landing from './pages/Landing'
 import { Box, Button, Divider, Stack, Typography } from '@mui/material'
 import { StyledButton } from './StyledComponents/StyledButton'
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ViewListIcon from '@mui/icons-material/ViewList';
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import LogoutIcon from '@mui/icons-material/Logout'
+import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ViewListIcon from '@mui/icons-material/ViewList'
 import { useEffect, useState } from 'react'
 import { useAuth } from './contexts/AuthContext'
 import ResetPassword from './pages/ResetPassword'
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import SettingsIcon from '@mui/icons-material/Settings'
+import MenuIcon from '@mui/icons-material/Menu'
 import { useRecords } from './contexts/RecordsContext'
+import MenuModal from './modals/MenuModal'
 
 function App() {
   const { user, setUser } = useAuth()
   const { records, setRecords } = useRecords()
+  const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const [showScrollTop, setShowScrollTop] = useState(false)
@@ -64,15 +67,15 @@ function App() {
   return (
     <Stack spacing={5}>
       {shouldShowNav && <Stack direction='row' justifyContent='space-between'>
-        <Stack direction='row' spacing={1}>
+        <Stack direction='row' spacing={1} alignItems='center'>
           <ShieldOutlinedIcon fontSize='large' color='primary' />
           <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
         </Stack>
-        <SettingsIcon fontSize='large' color='primary' />
+        <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
       </Stack>}
-      <Stack direction='row' spacing={2} justifyContent='space-between'>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
-          <Stack spacing={3} width='20%'>
+          <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
             <StyledButton startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.result.name}</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <StyledButton onClick={() => { navigate('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Your Records</StyledButton>
@@ -86,7 +89,7 @@ function App() {
               )
             }
           </Stack>}
-        <Box width={shouldShowNav ? '80%' : '100%'}>
+        <Box width={shouldShowNav ? { xs: '100%', sm: '80%' } : '100%'}>
           <Routes>
             <Route path='/' element={<Landing />} />
             <Route path='/signin' element={<Singin />} />
@@ -102,6 +105,7 @@ function App() {
         <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
         <Typography variant='body1' sx={{ opacity: '70%' }} alignSelf='center'>© {new Date().getFullYear()} Sekure Password. All rights reserved.</Typography>
       </Stack>
+      <MenuModal open={isMenuModalOpen} onClose={() => setIsMenuModalOpen(false)} logout={logout} />
     </Stack>
   )
 }

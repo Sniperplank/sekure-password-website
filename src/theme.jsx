@@ -17,5 +17,14 @@ export const theme = createTheme({
             main: '#eaf2f6',
             input: 'white'
         },
-    }
+    },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 660,
+            md: 900,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
 })
