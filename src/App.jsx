@@ -1,5 +1,5 @@
 import './App.css'
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Singin from './pages/Signin'
 import AddRecord from './pages/AddRecord'
 import RecordsList from './pages/RecordsList'
@@ -16,11 +16,12 @@ import ViewListIcon from '@mui/icons-material/ViewList'
 import { useEffect, useState } from 'react'
 import { useAuth } from './contexts/AuthContext'
 import ResetPassword from './pages/ResetPassword'
-import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import SettingsIcon from '@mui/icons-material/Settings'
+import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useRecords } from './contexts/RecordsContext'
 import MenuModal from './modals/MenuModal'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 function App() {
   const { user, setUser } = useAuth()
@@ -62,17 +63,18 @@ function App() {
     navigate('/')
   }
 
-  const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password'
+  const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy'
 
   return (
     <Stack spacing={5}>
-      {shouldShowNav && <Stack direction='row' justifyContent='space-between'>
-        <Stack direction='row' spacing={1} alignItems='center'>
-          <ShieldOutlinedIcon fontSize='large' color='primary' />
-          <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
-        </Stack>
-        <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
-      </Stack>}
+      {shouldShowNav &&
+        <Stack direction='row' justifyContent='space-between'>
+          <Stack direction='row' spacing={1} alignItems='center'>
+            <ShieldOutlinedIcon fontSize='large' color='primary' />
+            <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
+          </Stack>
+          <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
+        </Stack>}
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
           <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -92,6 +94,7 @@ function App() {
         <Box width={shouldShowNav ? { xs: '100%', sm: '80%' } : '100%'}>
           <Routes>
             <Route path='/' element={<Landing />} />
+            <Route path='/privacy' element={<PrivacyPolicy />} />
             <Route path='/signin' element={<Singin />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/reset-password' element={<ResetPassword />} />
@@ -101,9 +104,9 @@ function App() {
           </Routes>
         </Box>
       </Stack>
-      <Stack spacing={4} paddingTop={10}>
-        <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+      <Stack spacing={4} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 2, alignItems: 'center', borderTop: 'solid', borderWidth: '1px' }}>
         <Typography variant='body1' sx={{ opacity: '70%' }} alignSelf='center'>© {new Date().getFullYear()} Sekure Password. All rights reserved.</Typography>
+        <Typography variant='body1' component={Link} to={'/privacy'} sx={{ textDecoration: 'none' }}>Privacy Policy</Typography>
       </Stack>
       <MenuModal open={isMenuModalOpen} onClose={() => setIsMenuModalOpen(false)} logout={logout} />
     </Stack>

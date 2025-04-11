@@ -62,7 +62,7 @@ function Landing() {
                     <StyledButton variant='contained' color='primary' sx={{ width: '50%' }} onClick={() => { openInNewTab('https://github.com/Sniperplank/SekurePassword') }}>Get Extension</StyledButton>
                 </Stack>
             </Stack>
-            <Stack spacing={5} ref={ref}>
+            <Stack spacing={5} ref={ref} sx={{ paddingBottom: 10 }}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>Why Choose Sekure Password?</Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
                     <CardBox sx={{ maxWidth: { xs: '100%', sm: '20%' } }}>
