@@ -58,8 +58,8 @@ function Landing() {
                 <img src={ExtensionLock} width={350} height={350} />
                 <Stack spacing={4} width={{ xs: '100%', sm: '50%' }}>
                     <Typography variant='h4'>Get the extension to start signing into websites faster</Typography>
-                    <Typography variant='body1' sx={{ opacity: '75%' }}>Click the button below to get detailed instructions on how to install the extension to your chrome</Typography>
-                    <StyledButton variant='contained' color='primary' sx={{ width: '50%' }} onClick={() => { openInNewTab('https://github.com/Sniperplank/SekurePassword') }}>Get Extension</StyledButton>
+                    <Typography variant='body1' sx={{ opacity: '75%' }}>Click the button below to install the extension</Typography>
+                    <StyledButton variant='contained' color='primary' sx={{ width: '50%' }} onClick={() => { openInNewTab('https://chromewebstore.google.com/detail/sekure-password/kknoipdljcfhbbbiiehdogelfbkodoep') }}>Get Extension</StyledButton>
                 </Stack>
             </Stack>
             <Stack spacing={5} ref={ref} sx={{ paddingBottom: 10 }}>
