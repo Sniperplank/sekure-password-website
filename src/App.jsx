@@ -22,6 +22,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { useRecords } from './contexts/RecordsContext'
 import MenuModal from './modals/MenuModal'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import Profile from './pages/Profile'
 
 function App() {
   const { user, setUser } = useAuth()
@@ -78,7 +79,7 @@ function App() {
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
           <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <StyledButton startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.result.name}</StyledButton>
+            <StyledButton onClick={() => { navigate('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.result.name}</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <StyledButton onClick={() => { navigate('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Your Records</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
@@ -101,6 +102,7 @@ function App() {
             <Route path='/add' element={<AddRecord />} />
             <Route path='/list' element={<RecordsList />} />
             <Route path='/details' element={<RecordDetails />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </Box>
       </Stack>
