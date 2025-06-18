@@ -11,10 +11,6 @@ function Profile({ logout }) {
     const { user } = useAuth()
     const [isConfirmDeleteAccountModalOpen, setIsConfirmDeleteAccountModalOpen] = useState(false)
 
-    const confirmDeleteAccount = () => {
-        console.log("send email")
-    }
-
     return (
         <Stack spacing={10}>
             <Stack spacing={4}>
@@ -30,7 +26,7 @@ function Profile({ logout }) {
                     <Typography variant='body1'>A confirmation email will be sent to the email associated with this account</Typography>
                 </Stack>
             </Stack>
-            <ConfirmDeleteAccountModal open={isConfirmDeleteAccountModalOpen} onClose={() => setIsConfirmDeleteAccountModalOpen(false)} confirmDelete={confirmDeleteAccount} />
+            <ConfirmDeleteAccountModal open={isConfirmDeleteAccountModalOpen} onClose={() => setIsConfirmDeleteAccountModalOpen(false)} />
         </Stack>
     )
 }

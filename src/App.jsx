@@ -23,6 +23,7 @@ import { useRecords } from './contexts/RecordsContext'
 import MenuModal from './modals/MenuModal'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
+import DeleteAccount from './pages/DeleteAccount'
 
 function App() {
   const { user, setUser } = useAuth()
@@ -64,7 +65,7 @@ function App() {
     navigate('/')
   }
 
-  const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy'
+  const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy' && location.pathname !== '/delete-account'
 
   return (
     <Stack spacing={5}>
@@ -103,6 +104,7 @@ function App() {
             <Route path='/list' element={<RecordsList />} />
             <Route path='/details' element={<RecordDetails />} />
             <Route path='/profile' element={<Profile logout={logout} />} />
+            <Route path='/delete-account' element={<DeleteAccount />} />
           </Routes>
         </Box>
       </Stack>
