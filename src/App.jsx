@@ -102,7 +102,7 @@ function App() {
             <Route path='/add' element={<AddRecord />} />
             <Route path='/list' element={<RecordsList />} />
             <Route path='/details' element={<RecordDetails />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<Profile logout={logout} />} />
           </Routes>
         </Box>
       </Stack>
