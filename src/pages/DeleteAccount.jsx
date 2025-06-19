@@ -12,8 +12,8 @@ function DeleteAccount() {
 
     const handleDeleteAccount = async () => {
         try {
-            // const response = await axios.post('http://localhost:5000/user/reset-password', {token})
-            const response = await axios.post('https://sekure-password-server.vercel.app/user/delete-account', { token })
+            // const response = await axios.delete('http://localhost:5000/user/delete-account', {token})
+            const response = await axios.delete('https://sekure-password-server.vercel.app/user/delete-account', { token })
             setMessage(response.data.message)
             setTimeout(() => navigate('/'), 3000); // Redirect after success
         } catch (error) {
