@@ -22,7 +22,7 @@ function Landing() {
     const handleGetStarted = () => {
         const profile = localStorage.getItem('profile')
         if (profile) {
-            console.log('User already logged in:', profile)
+            // console.log('User already logged in:', profile)
             navigate('/list')
             return
         }

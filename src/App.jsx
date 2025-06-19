@@ -1,6 +1,7 @@
 import './App.css'
 import { Link, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Singin from './pages/Signin'
+import { jwtDecode } from 'jwt-decode'
 import AddRecord from './pages/AddRecord'
 import RecordsList from './pages/RecordsList'
 import RecordDetails from './pages/RecordDetails'
@@ -64,6 +65,14 @@ function App() {
     setRecords(null)
     navigate('/')
   }
+
+  useEffect(() => {
+    const token = user?.token
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout()
+    }
+  }, [user, logout])
 
   const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy' && location.pathname !== '/delete-account'
 

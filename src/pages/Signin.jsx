@@ -44,7 +44,7 @@ function Singin() {
     }
 
     return (
-        <CardBox sx={{ minWidth: { xs: 0, sm: 400 } }}>
+        <CardBox sx={{ minWidth: { xs: '90%', sm: 500 }, justifySelf: 'center', padding: { xs: 2, sm: 5 } }}>
             <Typography variant='h5' paddingBottom={3}>{isSignup ? 'Sign up' : 'Sign In'}</Typography>
             <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>
@@ -62,17 +62,17 @@ function Singin() {
                         {isHidden ? <VisibilityOffIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} /> : <VisibilityIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} />}
                     </Stack>
                     {isSignup && <StyledInput variant='outlined' name='confirmPassword' label='Confirm Main Password' onChange={handleChange} type={isHidden ? 'password' : 'text'} />}
-                    <Typography variant='h6' color='error'>{error}</Typography>
+                    {error !== '' && <Typography variant='h6' color='error'>{error}</Typography>}
                     <StyledButton type='submit' fullWidth variant='contained' color='primary'>
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </StyledButton>
-                    {
-                        !isSignup &&
-                        <Button onClick={forgotPassword}>Forgot Password</Button>
-                    }
-                    <Button onClick={switchMode}>
+                    <Button onClick={switchMode} sx={{ textTransform: 'none' }}>
                         {isSignup ? 'Already have an account? Sign in' : 'Dont have an account? Sign up'}
                     </Button>
+                    {
+                        !isSignup &&
+                        <Button onClick={forgotPassword} sx={{ textTransform: 'none' }}>Forgot Password</Button>
+                    }
                 </Stack>
             </form>
         </CardBox>
