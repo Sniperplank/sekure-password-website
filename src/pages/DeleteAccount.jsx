@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { StyledButton } from '../StyledComponents/StyledButton'
 
-function DeleteAccount() {
+function DeleteAccount({ logout }) {
     const [searchParams] = useSearchParams()
     const token = searchParams.get('token')
     const [message, setMessage] = useState('')
@@ -12,10 +12,12 @@ function DeleteAccount() {
 
     const handleDeleteAccount = async () => {
         try {
-            // const response = await axios.delete('http://localhost:5000/user/delete-account', {token})
-            const response = await axios.delete('https://sekure-password-server.vercel.app/user/delete-account', { token })
+            // const response = await axios.delete('http://localhost:5000/user/delete-account', { data: { token: token } })
+            const response = await axios.delete('https://sekure-password-server.vercel.app/user/delete-account', { data: { token: token } })
             setMessage(response.data.message)
-            setTimeout(() => navigate('/'), 3000); // Redirect after success
+            setTimeout(() => {
+                logout()
+            }, 2000); // Redirect after success
         } catch (error) {
             setMessage(error.response?.data?.message || 'Something went wrong.')
         }

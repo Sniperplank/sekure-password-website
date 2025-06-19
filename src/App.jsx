@@ -104,7 +104,7 @@ function App() {
             <Route path='/list' element={<RecordsList />} />
             <Route path='/details' element={<RecordDetails />} />
             <Route path='/profile' element={<Profile logout={logout} />} />
-            <Route path='/delete-account' element={<DeleteAccount />} />
+            <Route path='/delete-account' element={<DeleteAccount logout={logout} />} />
           </Routes>
         </Box>
       </Stack>
