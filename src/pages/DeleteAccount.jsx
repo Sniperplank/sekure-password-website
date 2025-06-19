@@ -8,7 +8,6 @@ function DeleteAccount({ logout }) {
     const [searchParams] = useSearchParams()
     const token = searchParams.get('token')
     const [message, setMessage] = useState('')
-    const navigate = useNavigate()
 
     const handleDeleteAccount = async () => {
         try {

@@ -13,8 +13,8 @@ function ConfirmDeleteAccountModal({ open, onClose }) {
 
     const handleConfirmDeleteRequest = async () => {
         try {
-            // const response = await axios.post('http://localhost:5000/user/confirm-account-delete', { email: user?.result.email })
-            const response = await axios.post('https://sekure-password-server.vercel.app/user/confirm-account-delete', { email: user?.result.email })
+            // const response = await axios.post('http://localhost:5000/user/confirm-account-delete', {}, { headers: { Authorization: `Bearer ${user.token}` } })
+            const response = await axios.post('https://sekure-password-server.vercel.app/user/confirm-account-delete', {}, { headers: { Authorization: `Bearer ${user.token}` } })
             setMessage(response.data.message)
         } catch (error) {
             setMessage(error.response?.data?.message || 'Something went wrong.')
