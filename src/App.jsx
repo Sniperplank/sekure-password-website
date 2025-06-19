@@ -25,6 +25,7 @@ import MenuModal from './modals/MenuModal'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import DeleteAccount from './pages/DeleteAccount'
+import axios from 'axios'
 
 function App() {
   const { user, setUser } = useAuth()
@@ -33,10 +34,11 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const [showScrollTop, setShowScrollTop] = useState(false)
+  axios.defaults.withCredentials = true
 
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [navigate])
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem('profile')))
+  // }, [navigate])
 
   // Handle scroll to top
   const handleScroll = () => {

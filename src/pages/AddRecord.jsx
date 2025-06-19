@@ -11,8 +11,8 @@ import { useRecords } from '../contexts/RecordsContext'
 
 function AddRecord() {
     const { records, setRecords } = useRecords()
-    const { user } = useAuth()
-    const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '', userEmail: user?.result.email })
+    const { user, encryptedKey } = useAuth()
+    const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '', userEmail: user?.email })
     const navigate = useNavigate()
     const [isHidden, setIsHidden] = useState(true)
 
@@ -22,7 +22,7 @@ function AddRecord() {
 
     const handleAddRecord = async () => {
         // await axios.post('http://localhost:5000/record', recordDetails)
-        await axios.post('https://sekure-password-server.vercel.app/record', { ...recordDetails, encryptedKey: user?.encryptedSecretKey })
+        await axios.post('https://sekure-password-server.vercel.app/record', { ...recordDetails, encryptedKey: encryptedKey })
         setRecords(null)
         navigate('/list')
     }
@@ -46,7 +46,7 @@ function AddRecord() {
         const generatedPassword = generatePassword()
         setRecordDetails((prevDetails) => ({
             ...prevDetails,
-            login: user?.result.email,
+            login: user?.email,
             password: generatedPassword,
         }))
     }

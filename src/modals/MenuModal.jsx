@@ -26,7 +26,7 @@ function MenuModal({ open, onClose, logout }) {
             <ModalOverlay onClick={onClose} />
             <ModalContent width={{ xs: '50%', sm: '30%' }}>
                 <Stack spacing={3}>
-                    <StyledButton onClick={() => { navigateToPage('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.result.name}</StyledButton>
+                    <StyledButton onClick={() => { navigateToPage('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.name}</StyledButton>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                     <StyledButton onClick={() => { navigateToPage('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Your Records</StyledButton>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>

@@ -15,8 +15,8 @@ function Profile({ logout }) {
         <Stack spacing={10}>
             <Stack spacing={4}>
                 <Typography variant='h4' color='primary'>Account Info</Typography>
-                <Typography variant='h6'>Email Address: {user?.result.email}</Typography>
-                <Typography variant='h6'>Created at: {new Date(user?.result.createdAt).toLocaleString()}</Typography>
+                <Typography variant='h6'>Email Address: {user?.email}</Typography>
+                <Typography variant='h6'>Created at: {new Date(user?.createdAt).toLocaleString()}</Typography>
             </Stack>
             <Stack spacing={4}>
                 <Typography variant='h4' color='primary'>Account Actions</Typography>

@@ -10,9 +10,11 @@ import { CardBox } from '../StyledComponents/CardBox'
 import LockIcon from '@mui/icons-material/Lock'
 import PasswordIcon from '@mui/icons-material/Password'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
+import { useAuth } from '../contexts/AuthContext'
 
 function Landing() {
     const navigate = useNavigate()
+    const { user } = useAuth()
     const ref = useRef(null)
 
     const handleLearnMore = () => {
@@ -20,9 +22,8 @@ function Landing() {
     }
 
     const handleGetStarted = () => {
-        const profile = localStorage.getItem('profile')
-        if (profile) {
-            // console.log('User already logged in:', profile)
+        if (user) {
+            // console.log('User already logged in:', user)
             navigate('/list')
             return
         }
