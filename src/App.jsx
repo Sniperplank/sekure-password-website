@@ -28,7 +28,7 @@ import DeleteAccount from './pages/DeleteAccount'
 import axios from 'axios'
 
 function App() {
-  const { user, setUser, setEncryptedKey } = useAuth()
+  const { user, setUser, setEncryptedKey, setLoading } = useAuth()
   const { records, setRecords } = useRecords()
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
   const navigate = useNavigate()
@@ -39,6 +39,26 @@ function App() {
   // useEffect(() => {
   //   setUser(JSON.parse(localStorage.getItem('profile')))
   // }, [navigate])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get('https://sekure-password-server.vercel.app/user/me', {
+          withCredentials: true
+        })
+        setUser(res.data.user)
+        setEncryptedKey(res.data.encryptedSecretKey)
+      } catch (err) {
+        console.warn('User not authenticated:', err)
+        setUser(null)
+        setEncryptedKey(null)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUser()
+  }, [navigate])
 
   // Handle scroll to top
   const handleScroll = () => {
