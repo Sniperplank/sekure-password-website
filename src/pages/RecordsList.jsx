@@ -9,7 +9,7 @@ import { useRecords } from '../contexts/RecordsContext';
 
 function RecordsList() {
   const { records, setRecords } = useRecords()
-  const { user, setUser, encryptedKey } = useAuth()
+  const { user, setUser } = useAuth()
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -35,7 +35,7 @@ function RecordsList() {
       if (user && !records) {
         try {
           // const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
-          const response = await axios.get(`https://sekure-password-server.vercel.app/record?email=${user?.email}&encryptedKey=${encodeURIComponent(encryptedKey)}`)
+          const response = await axios.get(`https://sekure-password-server.vercel.app/record?email=${user?.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
           setRecords(response.data)
         } catch (error) {
           console.error('Error fetching records:', error)

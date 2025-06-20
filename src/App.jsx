@@ -28,7 +28,7 @@ import DeleteAccount from './pages/DeleteAccount'
 import axios from 'axios'
 
 function App() {
-  const { user, setUser, setEncryptedKey, setLoading } = useAuth()
+  const { user, setUser, setLoading } = useAuth()
   const { records, setRecords } = useRecords()
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
   const navigate = useNavigate()
@@ -47,11 +47,9 @@ function App() {
           withCredentials: true
         })
         setUser(res.data.user)
-        setEncryptedKey(res.data.encryptedSecretKey)
       } catch (err) {
         console.warn('User not authenticated:', err)
         setUser(null)
-        setEncryptedKey(null)
       } finally {
         setLoading(false)
       }
@@ -88,7 +86,6 @@ function App() {
       })
 
       setUser(null)
-      setEncryptedKey(null)
 
       navigate('/')
     } catch (err) {

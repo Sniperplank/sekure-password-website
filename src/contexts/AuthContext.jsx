@@ -9,7 +9,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
-    const [encryptedKey, setEncryptedKey] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -19,11 +18,9 @@ export function AuthProvider({ children }) {
                     withCredentials: true
                 })
                 setUser(res.data.user)
-                setEncryptedKey(res.data.encryptedSecretKey)
             } catch (err) {
                 console.warn('User not authenticated:', err)
                 setUser(null)
-                setEncryptedKey(null)
             } finally {
                 setLoading(false)
             }
@@ -34,9 +31,7 @@ export function AuthProvider({ children }) {
 
     const value = {
         user,
-        encryptedKey,
         setUser,
-        setEncryptedKey,
         loading
     }
 

@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext'
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
 
 function RecordDetails() {
-    const { user, encryptedKey } = useAuth()
+    const { user } = useAuth()
     const { records, setRecords } = useRecords()
     const location = useLocation()
     const record = location.state?.record
@@ -36,7 +36,7 @@ function RecordDetails() {
 
     const saveChanges = async () => {
         try {
-            await axios.patch('https://sekure-password-server.vercel.app/record/', { record: updatedRecord, encryptedKey: encryptedKey })
+            await axios.patch('https://sekure-password-server.vercel.app/record/', { record: updatedRecord, encryptedKey: user?.encryptedSecretKey })
             setIsChanged(false)
             setRecords(null)
             navigate(-1)
@@ -48,7 +48,7 @@ function RecordDetails() {
 
     const deleteRecord = async () => {
         try {
-            await axios.delete('https://sekure-password-server.vercel.app/record/', { data: { record: record, encryptedKey: encryptedKey } })
+            await axios.delete('https://sekure-password-server.vercel.app/record/', { data: { record: record, encryptedKey: user?.encryptedSecretKey } })
             setRecords(null)
             navigate('/list')
         } catch (error) {
