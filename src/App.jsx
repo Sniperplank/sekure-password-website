@@ -47,6 +47,7 @@ function App() {
           withCredentials: true
         })
         setUser(res.data.user)
+        console.log(user)
       } catch (err) {
         console.warn('User not authenticated:', err)
         setUser(null)
