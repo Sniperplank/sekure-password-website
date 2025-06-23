@@ -35,7 +35,7 @@ function RecordsList() {
       if (user && !records) {
         try {
           // const response = await axios.get(`http://localhost:5000/record?email=${user?.result.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
-          const response = await axios.get(`https://sekure-password-server.vercel.app/record?email=${user?.email}&encryptedKey=${encodeURIComponent(user?.encryptedSecretKey)}`)
+          const response = await axios.get(`https://sekure-password-server.vercel.app/record`, { withCredentials: true })
           setRecords(response.data)
         } catch (error) {
           console.error('Error fetching records:', error)
