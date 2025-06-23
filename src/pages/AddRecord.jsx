@@ -22,7 +22,7 @@ function AddRecord() {
 
     const handleAddRecord = async () => {
         // await axios.post('http://localhost:5000/record', recordDetails)
-        await axios.post('https://sekure-password-server.vercel.app/record', { ...recordDetails, encryptedKey: user?.encryptedSecretKey })
+        await axios.post('https://sekure-password-server.vercel.app/record', { ...recordDetails, encryptedKey: user?.encryptedSecretKey }, { withCredentials: true })
         setRecords(null)
         navigate('/list')
     }
