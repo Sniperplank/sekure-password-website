@@ -47,7 +47,6 @@ function App() {
           withCredentials: true
         })
         setUser(res.data.user)
-        console.log(user)
       } catch (err) {
         console.warn('User not authenticated:', err)
         setUser(null)
@@ -87,7 +86,7 @@ function App() {
       })
 
       setUser(null)
-
+      setRecords(null)
       navigate('/')
     } catch (err) {
       console.error('Logout failed:', err)
