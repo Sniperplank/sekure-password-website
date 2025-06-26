@@ -12,7 +12,7 @@ function PrivacyPolicy() {
             <Stack direction='row' justifyContent='space-between'>
                 <Stack direction='row' spacing={1} alignItems='center' component={Link} to={user ? '/list' : '/'} sx={{ textDecoration: 'none' }}>
                     <ShieldOutlinedIcon fontSize='large' color='primary' />
-                    <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
+                    <Typography variant='h4' sx={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive' }}>Sekure Password</Typography>
                 </Stack>
             </Stack>
             <Stack>

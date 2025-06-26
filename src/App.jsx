@@ -109,7 +109,7 @@ function App() {
         <Stack direction='row' justifyContent='space-between'>
           <Stack direction='row' spacing={1} alignItems='center'>
             <ShieldOutlinedIcon fontSize='large' color='primary' />
-            <Typography variant='h5' fontWeight='bold'>Sekure Password</Typography>
+            <Typography variant='h4' sx={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive' }}>Sekure Password</Typography>
           </Stack>
           <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
         </Stack>}
