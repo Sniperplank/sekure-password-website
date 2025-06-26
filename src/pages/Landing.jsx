@@ -68,8 +68,8 @@ function Landing() {
                 </Stack>
                 <StyledButton className='getStartedButton' variant='contained' color='primary' onClick={handleGetStarted} sx={{ height: 40 }}>Get Started</StyledButton>
             </Stack>
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between' sx={{ p: { xs: 0, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to left bottom, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #a5c5d7' }}>
-                <Stack spacing={4} width={{ xs: '100%', sm: '50%' }}>
+            <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' sx={{ p: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to left bottom, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #a5c5d7' }}>
+                <Stack spacing={4} width={{ xs: '100%', md: '50%' }}>
                     <Typography variant='h3'>Keep Your Passwords Safe and Secure</Typography>
                     <Typography variant='h6' sx={{ opacity: '75%' }}>Never forget a password again. Store, generate, and manage all your passwords in one secure vault</Typography>
                     <Stack direction='row' spacing={2}>
@@ -80,9 +80,9 @@ function Landing() {
                 </Stack>
                 <img className='musclesLock' src={MusclesLock} width={{ xs: 400, sm: 550 }} height={300} />
             </Stack>
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-between' sx={{ p: { xs: 0, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to right top, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #32376f' }}>
-                <img className='extensionIconSVG' src={ExtensionIconSVG} width={350} height={350} />
-                <Stack spacing={4} width={{ xs: '100%', sm: '50%' }} justifyContent='center'>
+            <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' sx={{ p: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to right top, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #32376f' }}>
+                <img className='extensionIconSVG' src={ExtensionIconSVG} width={{ xs: 200, sm: 350 }} height={350} />
+                <Stack spacing={4} width={{ xs: '100%', md: '50%' }} justifyContent='center'>
                     <Typography variant='h4'>Get the extension to start signing into websites faster</Typography>
                     <Typography variant='body1' sx={{ opacity: '75%' }}>Click the button below to install the extension</Typography>
                     <StyledButton startIcon={<ExtensionIcon />} variant='contained' color='primary' sx={{ width: '50%', boxShadow: '0px 0px 10px #32376f' }} onClick={() => { openInNewTab('https://chromewebstore.google.com/detail/sekure-password/kknoipdljcfhbbbiiehdogelfbkodoep') }}>Get Extension</StyledButton>
