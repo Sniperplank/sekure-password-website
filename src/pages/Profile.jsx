@@ -15,7 +15,7 @@ function Profile({ logout }) {
 
     const handleDownload = async () => {
         try {
-            const res = await axios.get('https://sekure-password-server.vercel.app/records/download', {
+            const res = await axios.get('https://sekure-password-server.vercel.app/record/download', {
                 responseType: 'blob', // Important for file downloads
                 withCredentials: true
             })
@@ -41,7 +41,7 @@ function Profile({ logout }) {
         formData.append('file', file)
 
         try {
-            const res = await axios.post('https://sekure-password-server.vercel.app/records/upload', formData, {
+            const res = await axios.post('https://sekure-password-server.vercel.app/record/upload', formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data'
