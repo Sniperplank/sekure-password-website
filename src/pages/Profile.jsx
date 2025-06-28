@@ -23,7 +23,7 @@ function Profile({ logout }) {
             const url = window.URL.createObjectURL(new Blob([res.data]))
             const link = document.createElement('a')
             link.href = url
-            link.setAttribute('download', 'records-backup.json')
+            link.setAttribute('download', 'sekure-records-backup.json')
             document.body.appendChild(link)
             link.click()
             link.remove()
