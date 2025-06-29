@@ -6,10 +6,12 @@ import { StyledButton } from '../StyledComponents/StyledButton'
 import ConfirmDeleteAccountModal from '../modals/ConfirmDeleteAccountModal'
 import { useRef, useState } from 'react'
 import axios from 'axios'
+import { useRecords } from '../contexts/RecordsContext'
 
 
 function Profile({ logout }) {
     const { user } = useAuth()
+    const { records, setRecords } = useRecords()
     const [isConfirmDeleteAccountModalOpen, setIsConfirmDeleteAccountModalOpen] = useState(false)
     const fileInputRef = useRef()
 
@@ -47,6 +49,7 @@ function Profile({ logout }) {
                     'Content-Type': 'multipart/form-data'
                 }
             })
+            setRecords(null)
             alert(res.data.message || 'Upload successful!')
         } catch (error) {
             console.error('Upload error:', error)
