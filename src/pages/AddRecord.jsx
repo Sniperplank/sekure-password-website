@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/AuthContext'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { useRecords } from '../contexts/RecordsContext'
+import api from '../utils/axios'
 
 function AddRecord() {
     const { records, setRecords } = useRecords()
@@ -22,9 +23,13 @@ function AddRecord() {
 
     const handleAddRecord = async () => {
         // await axios.post('http://localhost:5000/record', recordDetails)
-        await axios.post('https://sekure-password-server.vercel.app/record', { recordDetails }, { withCredentials: true })
-        setRecords(null)
-        navigate('/list')
+        try {
+            await api.post('/record', recordDetails, { withCredentials: true })
+            setRecords(null)
+            navigate('/list')
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const handleChange = (e) => {

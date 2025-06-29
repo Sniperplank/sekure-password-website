@@ -6,6 +6,7 @@ import { Stack, Typography } from '@mui/material'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import axios from 'axios'
 import { useAuth } from '../contexts/AuthContext'
+import api from '../utils/axios'
 
 function ConfirmDeleteAccountModal({ open, onClose }) {
     const [message, setMessage] = useState("")
@@ -13,7 +14,7 @@ function ConfirmDeleteAccountModal({ open, onClose }) {
     const handleConfirmDeleteRequest = async () => {
         try {
             // const response = await axios.post('http://localhost:5000/user/confirm-account-delete', {}, { headers: { Authorization: `Bearer ${user.token}` } })
-            const response = await axios.post('https://sekure-password-server.vercel.app/user/confirm-account-delete', { withCredentials: true })
+            const response = await api.post('/user/confirm-account-delete', { withCredentials: true })
             setMessage(response.data.message)
         } catch (error) {
             setMessage(error.response?.data?.message || 'Something went wrong.')
@@ -32,7 +33,7 @@ function ConfirmDeleteAccountModal({ open, onClose }) {
                             <StyledButton variant='contained' color='error' onClick={handleConfirmDeleteRequest}>Delete</StyledButton>
                             <StyledButton variant='contained' color='primary' onClick={onClose}>Cancel</StyledButton>
                         </Stack>
-                        <Typography variant='body1'>A confirmation email will be sent to the email associated with this account</Typography>
+                        <Typography variant='body1'>A confirmation email will be sent to the email associated with this account. Make sure to download a backup of your records!</Typography>
                     </Stack>
                     {message !== "" && <Typography variant='h6'>{message}</Typography>}
                 </Stack>

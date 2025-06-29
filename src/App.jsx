@@ -26,6 +26,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import DeleteAccount from './pages/DeleteAccount'
 import axios from 'axios'
+import api from './utils/axios'
 
 function App() {
   const { user, setUser, setLoading } = useAuth()
@@ -43,7 +44,7 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get('https://sekure-password-server.vercel.app/user/me', {
+        const res = await api.get('/user/me', {
           withCredentials: true
         })
         setUser(res.data.user)
@@ -81,7 +82,7 @@ function App() {
 
   const logout = async () => {
     try {
-      await axios.post('https://sekure-password-server.vercel.app/user/logout', {}, {
+      await api.post('/user/logout', {}, {
         withCredentials: true
       })
 

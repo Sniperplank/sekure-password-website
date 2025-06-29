@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { StyledButton } from '../StyledComponents/StyledButton'
+import api from '../utils/axios'
 
 function DeleteAccount({ logout }) {
     const [searchParams] = useSearchParams()
@@ -12,7 +13,7 @@ function DeleteAccount({ logout }) {
     const handleDeleteAccount = async () => {
         try {
             // const response = await axios.delete('http://localhost:5000/user/delete-account', { data: { token: token } })
-            const response = await axios.delete('https://sekure-password-server.vercel.app/user/delete-account', { data: { token: token } })
+            const response = await api.delete('/user/delete-account', { data: { token: token } })
             setMessage(response.data.message)
             setTimeout(() => {
                 logout()

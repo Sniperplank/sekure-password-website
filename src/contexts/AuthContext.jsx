@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import api from '../utils/axios'
 
 const AuthContext = createContext()
 
@@ -14,7 +15,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get('https://sekure-password-server.vercel.app/user/me', {
+                const res = await api.get('/user/me', {
                     withCredentials: true
                 })
                 setUser(res.data.user)
@@ -32,7 +33,8 @@ export function AuthProvider({ children }) {
     const value = {
         user,
         setUser,
-        loading
+        loading,
+        setLoading
     }
 
     return (

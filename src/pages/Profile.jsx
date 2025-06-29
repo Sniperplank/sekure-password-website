@@ -7,6 +7,7 @@ import ConfirmDeleteAccountModal from '../modals/ConfirmDeleteAccountModal'
 import { useRef, useState } from 'react'
 import axios from 'axios'
 import { useRecords } from '../contexts/RecordsContext'
+import api from '../utils/axios'
 
 
 function Profile({ logout }) {
@@ -17,7 +18,7 @@ function Profile({ logout }) {
 
     const handleDownload = async () => {
         try {
-            const res = await axios.get('https://sekure-password-server.vercel.app/record/download', {
+            const res = await api.get('/record/download', {
                 responseType: 'blob', // Important for file downloads
                 withCredentials: true
             })
@@ -43,7 +44,7 @@ function Profile({ logout }) {
         formData.append('file', file)
 
         try {
-            const res = await axios.post('https://sekure-password-server.vercel.app/record/upload', formData, {
+            const res = await api.post('/record/upload', formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data'

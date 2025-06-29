@@ -4,6 +4,7 @@ import { StyledInput } from '../StyledComponents/StyledInput'
 import axios from 'axios'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import { useNavigate } from 'react-router-dom'
+import api from '../utils/axios'
 
 function ForgotPassword() {
     const [email, setEmail] = useState('')
@@ -12,7 +13,7 @@ function ForgotPassword() {
 
     const handlePasswordResetRequest = async () => {
         try {
-            const response = await axios.post('https://sekure-password-server.vercel.app/user/forgot-password', { email })
+            const response = await api.post('/user/forgot-password', { email })
             setMessage(response.data.message)
         } catch (error) {
             setMessage(error.response?.data?.message || 'Something went wrong.')

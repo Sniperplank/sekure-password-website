@@ -6,6 +6,7 @@ import { StyledInput } from '../StyledComponents/StyledInput'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { StyledButton } from '../StyledComponents/StyledButton'
+import api from '../utils/axios'
 
 function ResetPassword() {
     const [searchParams] = useSearchParams()
@@ -31,7 +32,7 @@ function ResetPassword() {
             //     token,
             //     newPassword,
             // })
-            const response = await axios.post('https://sekure-password-server.vercel.app/user/reset-password', {
+            const response = await api.post('/user/reset-password', {
                 token,
                 newPassword,
             })
