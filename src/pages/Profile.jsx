@@ -67,15 +67,15 @@ function Profile({ logout }) {
             </Stack>
             <Stack spacing={4}>
                 <Typography variant='h4' color='primary'>Data Management</Typography>
-                <StyledButton onClick={handleDownload} variant='outlined' sx={{ width: 300, height: 40 }}>Download Your Records</StyledButton>
-                <StyledButton onClick={() => fileInputRef.current?.click()} variant='outlined' sx={{ width: 300, height: 40 }}>Upload Records</StyledButton>
+                <StyledButton onClick={handleDownload} variant='contained' sx={{ width: 250, height: 40, textTransform: 'none' }}>Download Your Records</StyledButton>
+                <StyledButton onClick={() => fileInputRef.current?.click()} variant='contained' sx={{ width: 200, height: 40, textTransform: 'none'  }}>Upload Records</StyledButton>
                 <input type='file' accept='.json' ref={fileInputRef} style={{ display: 'none' }} onChange={handleUpload} />
             </Stack>
             <Stack spacing={4}>
                 <Typography variant='h4' color='primary'>Account Actions</Typography>
-                <StyledButton onClick={logout} variant='contained' startIcon={<LogoutIcon color='error' />} sx={{ justifyContent: 'flex-start', width: 300, height: 40 }}>Logout of Account</StyledButton>
+                <StyledButton onClick={logout} variant='contained' startIcon={<LogoutIcon color='error' />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Logout of Account</StyledButton>
                 <Stack spacing={1}>
-                    <StyledButton onClick={() => setIsConfirmDeleteAccountModalOpen(true)} variant='contained' color='error' startIcon={<DeleteIcon />} sx={{ justifyContent: 'flex-start', width: 300, height: 40 }}>Delete Your Account</StyledButton>
+                    <StyledButton onClick={() => setIsConfirmDeleteAccountModalOpen(true)} variant='contained' color='error' startIcon={<DeleteIcon />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Delete Your Account</StyledButton>
                     <Typography variant='body1'>A confirmation email will be sent to the email associated with this account</Typography>
                 </Stack>
             </Stack>
