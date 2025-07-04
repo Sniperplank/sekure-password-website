@@ -15,6 +15,9 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import { useAuth } from '../contexts/AuthContext'
 import ExtensionIcon from '@mui/icons-material/Extension'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CancelIcon from '@mui/icons-material/Cancel'
+import ClearIcon from '@mui/icons-material/Clear'
 
 function Landing() {
     const navigate = useNavigate()
@@ -30,13 +33,17 @@ function Landing() {
         ref.current?.scrollIntoView({ behavior: 'smooth' })
     }
 
-    const handleGetStarted = () => {
+    const handleGetStarted = (plan) => {
         if (user) {
-            // console.log('User already logged in:', user)
-            navigate('/list')
+            if (plan === 'premium' && user.subscription?.status !== 'premium') {
+                navigate('/upgrade') // Or trigger Stripe Checkout immediately
+            } else {
+                navigate('/list')
+            }
             return
         }
-        navigate('/signin')
+
+        navigate(`/signin?plan=${plan}`)
     }
 
     const openInNewTab = (url) => {
@@ -80,6 +87,78 @@ function Landing() {
                 </Stack>
                 <img className='musclesLock' src={MusclesLock} width={{ xs: 400, sm: 550 }} height={300} />
             </Stack>
+
+            <Stack spacing={5}>
+                <Typography variant='h4' fontWeight='bold' alignSelf='center'>Simple Plans</Typography>
+                <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-evenly' spacing={{ xs: 3, sm: 0 }}>
+                    <CardBox sx={{ maxWidth: { xs: '100%', sm: '20%' }, minWidth: '20%', borderBottom: 'solid' }}>
+                        <Stack spacing={3}>
+                            <Stack spacing={1}>
+                                <Typography variant='h6'>Free</Typography>
+                                <Stack direction='row' spacing={1}>
+                                    <Typography variant='h3' fontWeight='bold'>$0</Typography>
+                                    <Typography variant='h6' alignSelf='end'>/ month</Typography>
+                                </Stack>
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Maximum records</Typography>
+                                <Stack direction='row' spacing={1}>
+                                    <Typography variant='body2'>Up to 5</Typography>
+                                    <CheckCircleIcon sx={{ color: '#3CC684' }} />
+                                </Stack>
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Download records</Typography>
+                                <ClearIcon color='error' />
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Upload/import records</Typography>
+                                <ClearIcon color='error' />
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Autofill login</Typography>
+                                <ClearIcon color='error' />
+                            </Stack>
+                            <StyledButton className='getStartedButton' variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }} onClick={() => handleGetStarted('free')}>Get Started</StyledButton>
+                        </Stack>
+                    </CardBox>
+                    <CardBox className='premiumCard' sx={{ maxWidth: { xs: '100%', sm: '20%' }, minWidth: '20%', textShadow: '2px 2px #32376f', borderBottom: 'solid', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
+                        <Stack spacing={3}>
+                            <Stack spacing={1}>
+                                <Typography variant='h6'>Premium</Typography>
+                                <Stack direction='row' spacing={1}>
+                                    <Stack direction='row'>
+                                        <Typography variant='h3' fontWeight='bold'>$1</Typography>
+                                        <Typography variant='h5' fontWeight='bold'>.99</Typography>
+                                    </Stack>
+                                    <Typography variant='h6' alignSelf='end'>/ month</Typography>
+                                </Stack>
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Maximum records</Typography>
+                                <Stack direction='row' spacing={1}>
+                                    <Typography variant='body2'>Unlimited</Typography>
+                                    <CheckCircleIcon sx={{ color: '#3CC684' }} />
+                                </Stack>
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Download records</Typography>
+                                <CheckCircleIcon sx={{ color: '#3CC684' }} />
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Upload/import records</Typography>
+                                <CheckCircleIcon sx={{ color: '#3CC684' }} />
+                            </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Typography variant='body2'>Autofill login</Typography>
+                                <CheckCircleIcon sx={{ color: '#3CC684' }} />
+                            </Stack>
+                            <StyledButton className='getStartedButton' variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }} onClick={() => handleGetStarted('premium')}>Get Started</StyledButton>
+                        </Stack>
+                    </CardBox>
+                </Stack>
+            </Stack>
+
             <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' sx={{ p: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to right top, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #32376f' }}>
                 <img className='extensionIconSVG' src={ExtensionIconSVG} width={{ xs: 200, sm: 350 }} height={350} />
                 <Stack spacing={4} width={{ xs: '100%', md: '50%' }} justifyContent='center'>
@@ -88,7 +167,8 @@ function Landing() {
                     <StyledButton startIcon={<ExtensionIcon />} variant='contained' color='primary' sx={{ width: '50%', boxShadow: '0px 0px 10px #32376f' }} onClick={() => { openInNewTab('https://chromewebstore.google.com/detail/sekure-password/kknoipdljcfhbbbiiehdogelfbkodoep') }}>Get Extension</StyledButton>
                 </Stack>
             </Stack>
-            <Stack spacing={5} ref={ref} >
+
+            <Stack spacing={5} ref={ref}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>Why Choose Sekure Password?</Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
                     <CardBox className='featureBox' sx={{ maxWidth: { xs: '100%', sm: '20%' }, borderBottom: 'solid' }}>

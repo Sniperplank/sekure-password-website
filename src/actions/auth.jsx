@@ -3,22 +3,43 @@ import api from '../utils/axios'
 
 axios.defaults.withCredentials = true
 
-export const signin = async (formData, navigate, setError) => {
+export const signin = async (formData, navigate, setError, plan) => {
     try {
-        // const { data } = await axios.post('http://localhost:5000/user/signin', formData)
         await api.post('/user/signin', formData, { withCredentials: true })
-        navigate('/list')
+
+        if (plan === 'premium') {
+            const res = await api.get('/user/me', { withCredentials: true })
+            const user = res.data.user
+
+            if (user?.subscription?.status === 'premium') {
+                navigate('/list')
+            } else {
+                const { data } = await api.post(
+                    '/stripe/create-checkout-session',
+                    { email: user.email },
+                    { withCredentials: true }
+                )
+                window.location.href = data.url
+            }
+        } else {
+            navigate('/list')
+        }
     } catch (error) {
-        setError(error.response.data.message)
+        setError(error.response?.data?.message || 'Sign in failed')
     }
 }
 
-export const signup = async (formData, navigate, setError) => {
+export const signup = async (formData, navigate, setError, plan) => {
     try {
-        // const { data } = await axios.post('http://localhost:5000/user/signup', formData)
         await api.post('/user/signup', formData, { withCredentials: true })
-        navigate('/list')
+
+        if (plan === 'premium') {
+            const { data } = await api.post('/stripe/create-checkout-session', { email: formData.email }, { withCredentials: true })
+            window.location.href = data.url
+        } else {
+            navigate('/list')
+        }
     } catch (error) {
-        setError(error.response.data.message)
+        setError(error.response?.data?.message || 'Sign up failed')
     }
 }

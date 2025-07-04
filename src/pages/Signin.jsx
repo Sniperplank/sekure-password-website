@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { CardBox } from '../StyledComponents/CardBox'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import { StyledInput } from '../StyledComponents/StyledInput'
@@ -11,6 +11,8 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
 
 function Singin() {
+    const [searchParams] = useSearchParams()
+    const plan = searchParams.get('plan')
     const [isSignup, setIsSignup] = useState(false)
     const [formData, setFormData] = useState(initialState)
     const [isHidden, setIsHidden] = useState(true)
@@ -29,9 +31,9 @@ function Singin() {
         setError("")
         e.preventDefault()
         if (isSignup) {
-            signup(formData, navigate, setError)
+            signup(formData, navigate, setError, plan)
         } else {
-            signin(formData, navigate, setError)
+            signin(formData, navigate, setError, plan)
         }
     }
 
