@@ -73,7 +73,7 @@ function Landing() {
                     <ShieldOutlinedIcon fontSize='large' color='primary' />
                     <Typography variant='h4' sx={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive' }}>Sekure Password</Typography>
                 </Stack>
-                <StyledButton className='getStartedButton' variant='contained' color='primary' onClick={handleGetStarted} sx={{ height: 40 }}>Get Started</StyledButton>
+                <StyledButton className='getStartedButton' variant='contained' color='primary' onClick={handleGetStarted} sx={{ height: 40 }}>Sign In</StyledButton>
             </Stack>
             <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' sx={{ p: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to left bottom, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #a5c5d7' }}>
                 <Stack spacing={4} width={{ xs: '100%', md: '50%' }}>
@@ -88,7 +88,7 @@ function Landing() {
                 <img className='musclesLock' src={MusclesLock} width={{ xs: 400, sm: 550 }} height={300} />
             </Stack>
 
-            <Stack spacing={5}>
+            <Stack spacing={5} ref={ref}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>Simple Plans</Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='space-evenly' spacing={{ xs: 3, sm: 0 }}>
                     <CardBox sx={{ maxWidth: { xs: '100%', sm: '20%' }, minWidth: '20%', borderBottom: 'solid' }}>
@@ -168,7 +168,7 @@ function Landing() {
                 </Stack>
             </Stack>
 
-            <Stack spacing={5} ref={ref}>
+            <Stack spacing={5}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>Why Choose Sekure Password?</Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
                     <CardBox className='featureBox' sx={{ maxWidth: { xs: '100%', sm: '20%' }, borderBottom: 'solid' }}>
