@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Divider, Stack, Typography } from '@mui/material'
 import { useAuth } from '../contexts/AuthContext'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -8,6 +8,10 @@ import { useRef, useState } from 'react'
 import axios from 'axios'
 import { useRecords } from '../contexts/RecordsContext'
 import api from '../utils/axios'
+import UpgradeIcon from '@mui/icons-material/Upgrade'
+import CancelIcon from '@mui/icons-material/Cancel'
+import DownloadIcon from '@mui/icons-material/Download'
+import UploadIcon from '@mui/icons-material/Upload'
 
 
 function Profile({ logout }) {
@@ -61,22 +65,51 @@ function Profile({ logout }) {
     return (
         <Stack spacing={10}>
             <Stack spacing={4}>
-                <Typography variant='h4' color='primary'>Account Info</Typography>
-                <Typography variant='h6'>Email Address: {user?.email}</Typography>
-                <Typography variant='h6'>Created at: {new Date(user?.createdAt).toLocaleString()}</Typography>
+                <Stack spacing={2}>
+                    <Typography variant='h4' color='primary'>Account Info</Typography>
+                    <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+                </Stack>
+                <Typography variant='body1'>Email Address: {user?.email}</Typography>
+                <Typography variant='body1'>Created at: {new Date(user?.createdAt).toLocaleString()}</Typography>
             </Stack>
             <Stack spacing={4}>
-                <Typography variant='h4' color='primary'>Data Management</Typography>
-                <StyledButton onClick={handleDownload} variant='contained' sx={{ width: 250, height: 40, textTransform: 'none' }}>Download Your Records</StyledButton>
-                <StyledButton onClick={() => fileInputRef.current?.click()} variant='contained' sx={{ width: 200, height: 40, textTransform: 'none'  }}>Upload Records</StyledButton>
-                <input type='file' accept='.json' ref={fileInputRef} style={{ display: 'none' }} onChange={handleUpload} />
+                <Stack spacing={2}>
+                    <Typography variant='h4' color='primary'>Data Management</Typography>
+                    <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+                </Stack>
+                {user?.subscription.status === "free" ? <Typography variant='body1'>Upgrade your plan to manage your data</Typography>
+                    : <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
+                        <StyledButton onClick={handleDownload} variant='contained' startIcon={<DownloadIcon />} sx={{ width: 250, height: 40, textTransform: 'none' }}>Download Your Records</StyledButton>
+                        <StyledButton onClick={() => fileInputRef.current?.click()} variant='contained' startIcon={<UploadIcon />} sx={{ width: 200, height: 40, textTransform: 'none' }}>Upload Records</StyledButton>
+                        <input type='file' accept='.json' ref={fileInputRef} style={{ display: 'none' }} onChange={handleUpload} />
+                    </Stack>}
             </Stack>
             <Stack spacing={4}>
-                <Typography variant='h4' color='primary'>Account Actions</Typography>
-                <StyledButton onClick={logout} variant='contained' startIcon={<LogoutIcon color='error' />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Logout of Account</StyledButton>
-                <Stack spacing={1}>
-                    <StyledButton onClick={() => setIsConfirmDeleteAccountModalOpen(true)} variant='contained' color='error' startIcon={<DeleteIcon />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Delete Your Account</StyledButton>
-                    <Typography variant='body1'>A confirmation email will be sent to the email associated with this account</Typography>
+                <Stack spacing={2}>
+                    <Typography variant='h4' color='primary'>Your Plan</Typography>
+                    <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+                </Stack>
+                <Typography variant='body1'>Current plan: {user?.subscription.status.toUpperCase()}</Typography>
+                {
+                    user?.subscription.status === "premium" ?
+                        <Stack spacing={4}>
+                            <Typography variant='body1'>Current period end date: {new Date(user?.subscription.currentPeriodEnd).toLocaleString()}</Typography>
+                            <StyledButton variant='contained' color='error' startIcon={<CancelIcon />} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Cancel Plan</StyledButton>
+                        </Stack>
+                        : <StyledButton variant='contained' color='primary' startIcon={<UpgradeIcon />} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Upgrade Plan</StyledButton>
+                }
+            </Stack>
+            <Stack spacing={4}>
+                <Stack spacing={2}>
+                    <Typography variant='h4' color='primary'>Account Actions</Typography>
+                    <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+                </Stack>
+                <Stack direction={{ xs: 'column', md: 'row' }} spacing={5}>
+                    <StyledButton onClick={logout} variant='contained' startIcon={<LogoutIcon color='error' />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Logout of Account</StyledButton>
+                    <Stack spacing={1}>
+                        <StyledButton onClick={() => setIsConfirmDeleteAccountModalOpen(true)} variant='contained' color='error' startIcon={<DeleteIcon />} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Delete Your Account</StyledButton>
+                        <Typography variant='body2'>A confirmation email will be sent to the email associated with this account</Typography>
+                    </Stack>
                 </Stack>
             </Stack>
             <ConfirmDeleteAccountModal open={isConfirmDeleteAccountModalOpen} onClose={() => setIsConfirmDeleteAccountModalOpen(false)} />

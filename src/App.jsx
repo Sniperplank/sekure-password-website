@@ -27,6 +27,7 @@ import Profile from './pages/Profile'
 import DeleteAccount from './pages/DeleteAccount'
 import axios from 'axios'
 import api from './utils/axios'
+import { CardBox } from './StyledComponents/CardBox'
 
 function App() {
   const { user, setUser, setLoading } = useAuth()
@@ -112,11 +113,20 @@ function App() {
             <ShieldOutlinedIcon fontSize='large' color='primary' />
             <Typography variant='h4' sx={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive' }}>Sekure Password</Typography>
           </Stack>
-          <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
+          <Stack direction='row' spacing={5} alignItems='center'>
+            <SettingsIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { navigate('/profile') }} />
+            <MenuIcon fontSize='large' color='primary' sx={{ ":hover": { cursor: 'pointer' } }} onClick={() => { setIsMenuModalOpen(true) }} />
+          </Stack>
         </Stack>}
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
           <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Box className='premiumCard' sx={{ width: 200, height: 50, borderRadius: 15, justifySelf: 'center', alignContent: 'center', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
+              {user?.subscription.status === "free" ?
+                <Button sx={{ width: '100%', height: '100%', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Upgrade Plan</Button>
+                : <Typography variant='h6' color='primary' sx={{ justifySelf: 'center', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Premium</Typography>}
+            </Box>
+            <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <StyledButton onClick={() => { navigate('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.name}</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <StyledButton onClick={() => { navigate('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Your Records</StyledButton>
@@ -150,7 +160,7 @@ function App() {
         <Typography variant='body1' component={Link} to={'/privacy'} sx={{ textDecoration: 'none' }}>Privacy Policy</Typography>
       </Stack>
       <MenuModal open={isMenuModalOpen} onClose={() => setIsMenuModalOpen(false)} logout={logout} />
-    </Stack>
+    </Stack >
   )
 }
 
