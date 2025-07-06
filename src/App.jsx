@@ -121,6 +121,7 @@ function App() {
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent='space-between'>
         {shouldShowNav &&
           <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <Box className='premiumCard' sx={{ width: 200, height: 50, borderRadius: 15, justifySelf: 'center', alignContent: 'center', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
               {user?.subscription.status === "free" ?
                 <Button sx={{ width: '100%', height: '100%', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Upgrade Plan</Button>

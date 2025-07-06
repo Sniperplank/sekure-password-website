@@ -67,7 +67,7 @@ function Landing() {
     }, [])
 
     return (
-        <Stack spacing={20}>
+        <Stack className="landing" spacing={20}>
             <Stack direction='row' justifyContent='space-between' alignItems='center'>
                 <Stack direction='row' spacing={1} alignItems='center'>
                     <ShieldOutlinedIcon fontSize='large' color='primary' />

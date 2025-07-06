@@ -12,12 +12,14 @@ import UpgradeIcon from '@mui/icons-material/Upgrade'
 import CancelIcon from '@mui/icons-material/Cancel'
 import DownloadIcon from '@mui/icons-material/Download'
 import UploadIcon from '@mui/icons-material/Upload'
+import ConfirmCancelSubModal from '../modals/ConfirmCancelSubModal'
 
 
 function Profile({ logout }) {
     const { user } = useAuth()
     const { records, setRecords } = useRecords()
     const [isConfirmDeleteAccountModalOpen, setIsConfirmDeleteAccountModalOpen] = useState(false)
+    const [isConfirmCancelSubModalOpen, setIsConfirmCancelSubModalOpen] = useState(false)
     const fileInputRef = useRef()
 
     const handleDownload = async () => {
@@ -94,7 +96,7 @@ function Profile({ logout }) {
                     user?.subscription.status === "premium" ?
                         <Stack spacing={4}>
                             <Typography variant='body1'>Current period end date: {new Date(user?.subscription.currentPeriodEnd).toLocaleString()}</Typography>
-                            <StyledButton variant='contained' color='error' startIcon={<CancelIcon />} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Cancel Plan</StyledButton>
+                            <StyledButton variant='contained' color='error' startIcon={<CancelIcon />} onClick={() => setIsConfirmCancelSubModalOpen(true)} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Cancel Plan</StyledButton>
                         </Stack>
                         : <StyledButton variant='contained' color='primary' startIcon={<UpgradeIcon />} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Upgrade Plan</StyledButton>
                 }
@@ -113,6 +115,7 @@ function Profile({ logout }) {
                 </Stack>
             </Stack>
             <ConfirmDeleteAccountModal open={isConfirmDeleteAccountModalOpen} onClose={() => setIsConfirmDeleteAccountModalOpen(false)} />
+            <ConfirmCancelSubModal open={isConfirmCancelSubModalOpen} onClose={() => setIsConfirmCancelSubModalOpen(false)} />
         </Stack>
     )
 }

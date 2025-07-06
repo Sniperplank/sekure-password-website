@@ -16,6 +16,7 @@ function AddRecord() {
     const [recordDetails, setRecordDetails] = useState({ title: '', login: '', password: '', login_url: '' })
     const navigate = useNavigate()
     const [isHidden, setIsHidden] = useState(true)
+    const [error, setError] = useState("")
 
     const changeHiddenMode = () => {
         setIsHidden(prev => !prev)
@@ -28,7 +29,8 @@ function AddRecord() {
             setRecords(null)
             navigate('/list')
         } catch (error) {
-            console.error(error)
+            console.error(error.response?.data?.message)
+            setError(error.response?.data?.message)
         }
     }
 
@@ -71,6 +73,7 @@ function AddRecord() {
             </Stack>
             <Button onClick={autofillPassword} sx={{}}>Generate password and autofill</Button>
             <StyledButton variant='contained' onClick={handleAddRecord} sx={{ width: '20%', alignSelf: 'center' }}>Add</StyledButton>
+            {error && <Typography variant='h6' color='error' alignSelf='center'>{error}</Typography>}
         </Stack>
     )
 }
