@@ -13,14 +13,16 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import DownloadIcon from '@mui/icons-material/Download'
 import UploadIcon from '@mui/icons-material/Upload'
 import ConfirmCancelSubModal from '../modals/ConfirmCancelSubModal'
+import { useNavigate } from 'react-router-dom'
 
 
 function Profile({ logout }) {
-    const { user } = useAuth()
+    const { user, setUser } = useAuth()
     const { records, setRecords } = useRecords()
     const [isConfirmDeleteAccountModalOpen, setIsConfirmDeleteAccountModalOpen] = useState(false)
     const [isConfirmCancelSubModalOpen, setIsConfirmCancelSubModalOpen] = useState(false)
     const fileInputRef = useRef()
+    const navigate = useNavigate()
 
     const handleDownload = async () => {
         try {
@@ -64,6 +66,17 @@ function Profile({ logout }) {
         }
     }
 
+    const undoCancel = async () => {
+        try {
+            await api.post('/stripe/undo-cancel-subscription', {}, { withCredentials: true })
+            alert('Subscription cancellation undone!')
+            setUser(null)
+            navigate('/list')
+        } catch (err) {
+            alert('Failed to undo. Try again later.')
+        }
+    }
+
     return (
         <Stack spacing={10}>
             <Stack spacing={4}>
@@ -91,14 +104,19 @@ function Profile({ logout }) {
                     <Typography variant='h4' color='primary'>Your Plan</Typography>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                 </Stack>
-                <Typography variant='body1'>Current plan: {user?.subscription.status.toUpperCase()}</Typography>
+                <Typography variant='body1'>Current plan: {user?.subscription.status.toUpperCase()} {user?.subscription.cancelAtPeriodEnd && '(Cancelled)'}</Typography>
                 {
                     user?.subscription.status === "premium" ?
                         <Stack spacing={4}>
-                            <Typography variant='body1'>Current period end date: {new Date(user?.subscription.currentPeriodEnd).toLocaleString()}</Typography>
-                            <StyledButton variant='contained' color='error' startIcon={<CancelIcon />} onClick={() => setIsConfirmCancelSubModalOpen(true)} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Cancel Plan</StyledButton>
+                            <Typography variant='body1'>{user?.subscription.cancelAtPeriodEnd ? 'Premium untill' : 'Current period end date:'} {new Date(user?.subscription.currentPeriodEnd).toLocaleString()}</Typography>
+                            {user?.subscription.cancelAtPeriodEnd
+                                ? <Stack spacing={2}>
+                                    <StyledButton variant='contained' color='primary' startIcon={<CancelIcon />} onClick={undoCancel} sx={{ justifyContent: 'flex-start', width: 250, height: 40 }}>Undo Cancellation</StyledButton>
+                                    <Typography variant='body1'>* Your records will be deleted at the end of the current billing period *</Typography>
+                                </Stack>
+                                : <StyledButton variant='contained' color='error' startIcon={<CancelIcon />} onClick={() => setIsConfirmCancelSubModalOpen(true)} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Cancel Plan</StyledButton>}
                         </Stack>
-                        : <StyledButton variant='contained' color='primary' startIcon={<UpgradeIcon />} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Upgrade Plan</StyledButton>
+                        : <StyledButton variant='contained' color='primary' startIcon={<UpgradeIcon />} onClick={() => { navigate('/upgrade') }} sx={{ justifyContent: 'flex-start', width: 200, height: 40 }}>Upgrade Plan</StyledButton>
                 }
             </Stack>
             <Stack spacing={4}>

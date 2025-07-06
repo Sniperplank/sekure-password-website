@@ -41,6 +41,7 @@ function ConfirmCancelSubModal({ open, onClose }) {
                             <StyledButton variant='contained' color='primary' onClick={onClose}>Back</StyledButton>
                         </Stack>
                         <Typography variant='body1'>You will lose all the premium features. You can still use our services with the free plan</Typography>
+                        <Typography variant='body1' sx={{ fontWeight: 'bold' }}>* Make sure to download your records before proceeding *</Typography>
                     </Stack>
                     {message !== "" && <Typography variant='h6'>{message}</Typography>}
                 </Stack>

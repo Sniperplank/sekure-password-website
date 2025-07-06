@@ -28,6 +28,7 @@ import DeleteAccount from './pages/DeleteAccount'
 import axios from 'axios'
 import api from './utils/axios'
 import { CardBox } from './StyledComponents/CardBox'
+import UpgradePlan from './pages/UpgradePlan'
 
 function App() {
   const { user, setUser, setLoading } = useAuth()
@@ -124,7 +125,7 @@ function App() {
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <Box className='premiumCard' sx={{ width: 200, height: 50, borderRadius: 15, justifySelf: 'center', alignContent: 'center', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
               {user?.subscription.status === "free" ?
-                <Button sx={{ width: '100%', height: '100%', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Upgrade Plan</Button>
+                <Button sx={{ width: '100%', height: '100%', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} onClick={() => { navigate('/upgrade') }}>Upgrade Plan</Button>
                 : <Typography variant='h6' color='primary' sx={{ justifySelf: 'center', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Premium</Typography>}
             </Box>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
@@ -153,13 +154,16 @@ function App() {
             <Route path='/details' element={<RecordDetails />} />
             <Route path='/profile' element={<Profile logout={logout} />} />
             <Route path='/delete-account' element={<DeleteAccount logout={logout} />} />
+            <Route path='/upgrade' element={<UpgradePlan />} />
           </Routes>
         </Box>
       </Stack>
-      <Stack spacing={4} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 2, alignItems: 'center', borderTop: 'solid', borderWidth: '1px' }}>
-        <Typography variant='body1' sx={{ opacity: '70%' }} alignSelf='center'>© {new Date().getFullYear()} Sekure Password. All rights reserved.</Typography>
-        <Typography variant='body1' component={Link} to={'/privacy'} sx={{ textDecoration: 'none' }}>Privacy Policy</Typography>
-      </Stack>
+      <footer>
+        <Stack spacing={4} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 2, alignItems: 'center', borderTop: 'solid', borderWidth: '1px' }}>
+          <Typography variant='body1' sx={{ opacity: '70%' }} alignSelf='center'>© {new Date().getFullYear()} Sekure Password. All rights reserved.</Typography>
+          <Typography variant='body1' component={Link} to={'/privacy'} sx={{ textDecoration: 'none' }}>Privacy Policy</Typography>
+        </Stack>
+      </footer>
       <MenuModal open={isMenuModalOpen} onClose={() => setIsMenuModalOpen(false)} logout={logout} />
     </Stack >
   )
