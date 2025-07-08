@@ -7,6 +7,7 @@ import { CardBox } from '../StyledComponents/CardBox';
 import { StyledInput } from '../StyledComponents/StyledInput';
 import { useRecords } from '../contexts/RecordsContext';
 import api from '../utils/axios';
+import { StyledButton } from '../StyledComponents/StyledButton';
 
 function RecordsList() {
   const { records, setRecords } = useRecords()
@@ -48,6 +49,7 @@ function RecordsList() {
 
   return (
     <Stack spacing={3}>
+      {(user === undefined || user === null) && <StyledButton variant='contained' color='primary' onClick={() => navigate('/signin')} sx={{ boxShadow: '0px 0px 10px #32376f' }}>Sign in</StyledButton>}
       <Typography variant='h5' color='primary'>Your Records</Typography>
       <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
       <StyledInput variant='outlined' label={`Search ${records ? records.length : 0} records by title`} type='search' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />

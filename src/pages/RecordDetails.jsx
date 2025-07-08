@@ -23,6 +23,12 @@ function RecordDetails() {
     const initialRecord = useRef({ ...record })
     const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] = useState(false)
 
+    useEffect(() => {
+        if (!user) {
+            navigate('/')
+        }
+    }, [navigate])
+
     const changeHiddenMode = () => {
         setIsHidden(prev => !prev)
     }
@@ -67,13 +73,13 @@ function RecordDetails() {
         <Stack spacing={5}>
             <Typography variant='h5' color='primary'>Edit Record</Typography>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <StyledInput variant='outlined' name='title' label='Title' defaultValue={record.title} onChange={handleChange} />
-            <StyledInput variant='outlined' name='login' label='Login' defaultValue={record.login} onChange={handleChange} />
+            <StyledInput variant='outlined' name='title' label='Title' defaultValue={record?.title} onChange={handleChange} />
+            <StyledInput variant='outlined' name='login' label='Login' defaultValue={record?.login} onChange={handleChange} />
             <Stack direction='row' spacing={2}>
-                <StyledInput variant='outlined' name='password' label='Password' defaultValue={record.password} type={isHidden ? 'password' : 'text'} onChange={handleChange} sx={{ width: '90%' }} />
+                <StyledInput variant='outlined' name='password' label='Password' defaultValue={record?.password} type={isHidden ? 'password' : 'text'} onChange={handleChange} sx={{ width: '90%' }} />
                 {isHidden ? <VisibilityOffIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} /> : <VisibilityIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} />}
             </Stack>
-            <StyledInput variant='outlined' name='login_url' label='URL' defaultValue={record.login_url} onChange={handleChange} />
+            <StyledInput variant='outlined' name='login_url' label='URL' defaultValue={record?.login_url} onChange={handleChange} />
             {
                 isChanged && (
                     <Stack spacing={2} sx={{ alignSelf: 'center' }}>

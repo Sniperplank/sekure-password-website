@@ -6,9 +6,11 @@ import api from '../utils/axios'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ClearIcon from '@mui/icons-material/Clear'
+import { useNavigate } from 'react-router-dom'
 
 function UpgradePlan() {
     const { user } = useAuth()
+    const navigate = useNavigate()
 
     const handleUpgrade = async () => {
         const { data } = await api.post('/stripe/create-checkout-session', { email: user.email }, { withCredentials: true })
@@ -47,7 +49,8 @@ function UpgradePlan() {
                             <Typography variant='body2'>Autofill login</Typography>
                             <ClearIcon color='error' />
                         </Stack>
-                        <StyledButton variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }}>Current Plan</StyledButton>
+                        {user ? <StyledButton variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }}>Current Plan</StyledButton>
+                            : <StyledButton variant='contained' color='primary' onClick={() => navigate('/signin')} sx={{ boxShadow: '0px 0px 10px #32376f' }}>Sign up</StyledButton>}
                     </Stack>
                 </CardBox>
                 <CardBox className='premiumCard' sx={{ maxWidth: { xs: '100%', sm: '20%' }, minWidth: '20%', textShadow: '2px 2px #32376f', borderBottom: 'solid', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
@@ -81,7 +84,8 @@ function UpgradePlan() {
                             <Typography variant='body2'>Autofill login</Typography>
                             <CheckCircleIcon sx={{ color: '#3CC684' }} />
                         </Stack>
-                        <StyledButton className='getStartedButton' variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }} onClick={() => handleUpgrade()}>Upgrade to Premium</StyledButton>
+                        {user ? <StyledButton className='getStartedButton' variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }} onClick={() => handleUpgrade()}>Upgrade to Premium</StyledButton>
+                            : <StyledButton className='getStartedButton' variant='contained' color='primary' sx={{ boxShadow: '0px 0px 10px #32376f' }} onClick={() => navigate(`/signin?plan=premium`)}>Sign up</StyledButton>}
                     </Stack>
                 </CardBox>
             </Stack>

@@ -1,6 +1,6 @@
 import { Button, Divider, Stack, Typography } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StyledInput } from '../StyledComponents/StyledInput'
 import { StyledButton } from '../StyledComponents/StyledButton'
@@ -17,6 +17,12 @@ function AddRecord() {
     const navigate = useNavigate()
     const [isHidden, setIsHidden] = useState(true)
     const [error, setError] = useState("")
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/')
+        }
+    }, [navigate])
 
     const changeHiddenMode = () => {
         setIsHidden(prev => !prev)

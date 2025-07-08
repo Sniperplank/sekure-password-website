@@ -4,7 +4,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { StyledButton } from '../StyledComponents/StyledButton'
 import ConfirmDeleteAccountModal from '../modals/ConfirmDeleteAccountModal'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useRecords } from '../contexts/RecordsContext'
 import api from '../utils/axios'
@@ -23,6 +23,12 @@ function Profile({ logout }) {
     const [isConfirmCancelSubModalOpen, setIsConfirmCancelSubModalOpen] = useState(false)
     const fileInputRef = useRef()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/')
+        }
+    }, [navigate])
 
     const handleDownload = async () => {
         try {
