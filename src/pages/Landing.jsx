@@ -6,6 +6,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Stack, Typ
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import LockSVG from '../assets/locksvg.svg'
 import MusclesLock from '../assets/musclesLock.svg'
+import MuscleLockGradient from '../assets/muscleLockGradient.svg'
 import ExtensionLock from '../assets/extensionLock.svg'
 import ExtensionIconSVG from '../assets/extensionIconSVG.svg'
 import { CardBox } from '../StyledComponents/CardBox'
@@ -85,7 +86,7 @@ function Landing() {
                         <StyledButton variant='outlined' color='primary' onClick={handleLearnMore} sx={{ color: 'text.main', textTransform: 'none' }}>Learn More</StyledButton>
                     </Stack>
                 </Stack>
-                <img className='musclesLock' src={MusclesLock} width={{ xs: 400, sm: 550 }} height={300} />
+                <img className='musclesLock' loading='lazy' src={MuscleLockGradient} width={{ xs: 400, sm: 550 }} height={300} />
             </Stack>
 
             <Stack spacing={5} ref={ref}>
@@ -160,7 +161,7 @@ function Landing() {
             </Stack>
 
             <Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' sx={{ p: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 10 }, borderBottom: 'solid', background: 'linear-gradient(to right top, #a5c5d7, #7da1bf, #5c7da6, #435a8c, #32376f)', borderRadius: 5, boxShadow: '0px 0px 60px #32376f' }}>
-                <img className='extensionIconSVG' src={ExtensionIconSVG} width={{ xs: 200, sm: 350 }} height={350} />
+                <img className='extensionIconSVG' loading='lazy' src={ExtensionIconSVG} width={{ xs: 200, sm: 350 }} height={350} />
                 <Stack spacing={4} width={{ xs: '100%', md: '50%' }} justifyContent='center'>
                     <Typography variant='h4'>Get the extension to start signing into websites faster</Typography>
                     <Typography variant='body1' sx={{ opacity: '75%' }}>Click the button below to install the extension</Typography>

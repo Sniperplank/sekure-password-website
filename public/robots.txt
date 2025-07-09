@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sekure-password.vercel.app/sitemap.xml
