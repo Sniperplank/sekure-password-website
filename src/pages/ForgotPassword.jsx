@@ -21,7 +21,7 @@ function ForgotPassword() {
     }
 
     return (
-        <Stack spacing={4} sx={{ p: 10, m: 10 }}>
+        <Stack spacing={4} sx={{ p: { xs: 1, sm: 10 }, m: { xs: 1, sm: 10 } }}>
             <Typography variant="h5" color="primary">Forgot Password</Typography>
             <Typography variant="body1">Enter your e-mail to reset your password</Typography>
             <StyledInput variant="outlined" label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
