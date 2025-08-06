@@ -197,8 +197,8 @@ function Landing() {
             </Stack>
             <Stack spacing={5} sx={{ paddingBottom: 10 }}>
                 <Typography variant='h4' fontWeight='bold' alignSelf='center'>FAQs</Typography>
-                <Stack spacing={3} p={5}>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleAccordionChange('panel1')} sx={{ backgroundColor: '#32376f', color: 'text.main' }}>
+                <Stack spacing={3} sx={{ borderRadius: 5 }}>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleAccordionChange('panel1')} sx={{ backgroundColor: '#32376f', color: 'text.main', borderRadius: 5, display: 'none' }}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} aria-controls="panel1-content" id="panel1-header">
                             <Typography component="span" variant='h6'>Do you store my passwords?</Typography>
                         </AccordionSummary>
@@ -206,7 +206,15 @@ function Landing() {
                             <Typography component="span" variant='h6'>No — everything is encrypted locally.</Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleAccordionChange('panel2')} sx={{ backgroundColor: '#32376f', color: 'text.main' }}>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleAccordionChange('panel1')} sx={{ backgroundColor: '#32376f', color: 'text.main', borderRadius: 5 }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} aria-controls="panel1-content" id="panel1-header">
+                            <Typography component="span" variant='h6'>Do you store my passwords?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography component="span" variant='h6'>No — everything is encrypted locally.</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleAccordionChange('panel2')} sx={{ backgroundColor: '#32376f', color: 'text.main', borderRadius: 5 }}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} aria-controls="panel2-content" id="panel2-header">
                             <Typography component="span" variant='h6'>Can I recover my main password?</Typography>
                         </AccordionSummary>
@@ -214,12 +222,20 @@ function Landing() {
                             <Typography component="span" variant='h6'>Yes — if you forget your main password you can reset it using your email.</Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleAccordionChange('panel3')} sx={{ backgroundColor: '#32376f', color: 'text.main' }}>
+                    <Accordion expanded={expanded === 'panel3'} onChange={handleAccordionChange('panel3')} sx={{ backgroundColor: '#32376f', color: 'text.main', borderRadius: 5 }}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} aria-controls="panel3-content" id="panel3-header">
                             <Typography component="span" variant='h6'>Can I use Sekure Password on multiple devices?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography component="span" variant='h6'>Yes — as long as you log in with your account.</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleAccordionChange('panel1')} sx={{ backgroundColor: '#32376f', color: 'text.main', borderRadius: 5, display: 'none' }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} aria-controls="panel1-content" id="panel1-header">
+                            <Typography component="span" variant='h6'>Do you store my passwords?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography component="span" variant='h6'>No — everything is encrypted locally.</Typography>
                         </AccordionDetails>
                     </Accordion>
                 </Stack>
