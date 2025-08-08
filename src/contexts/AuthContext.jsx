@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import api from '../utils/axios'
+import { CircularProgress } from '@mui/material'
 
 const AuthContext = createContext()
 
@@ -39,7 +40,8 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {/* {loading ? <CircularProgress size={70} sx={{ alignSelf: 'center', justifySelf: 'center' }} /> : children} */}
+            {children}
         </AuthContext.Provider>
     )
 }

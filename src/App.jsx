@@ -96,13 +96,13 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    const token = user?.token
-    if (token) {
-      const decodedToken = jwtDecode(token)
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout()
-    }
-  }, [user, logout])
+  // useEffect(() => {
+  //   const token = user?.token
+  //   if (token) {
+  //     const decodedToken = jwtDecode(token)
+  //     if (decodedToken.exp * 1000 < new Date().getTime()) logout()
+  //   }
+  // }, [user, logout])
 
   const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy' && location.pathname !== '/delete-account'
 
