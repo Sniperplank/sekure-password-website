@@ -1,15 +1,16 @@
 import { Button, Divider, Stack, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { StyledInput } from '../StyledComponents/StyledInput'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { StyledButton } from '../StyledComponents/StyledButton'
-import axios from 'axios'
 import { useRecords } from '../contexts/RecordsContext'
 import { useAuth } from '../contexts/AuthContext'
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
 import api from '../utils/axios'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import CheckIcon from '@mui/icons-material/Check'
 
 function RecordDetails() {
     const { user } = useAuth()
@@ -19,6 +20,7 @@ function RecordDetails() {
     const [updatedRecord, setUpdatedRecord] = useState({ ...record })
     const [isHidden, setIsHidden] = useState(true)
     const [isChanged, setIsChanged] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
     const navigate = useNavigate()
     const initialRecord = useRef({ ...record })
     const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] = useState(false)
@@ -68,6 +70,19 @@ function RecordDetails() {
         setIsChanged(hasChanges)
     }, [updatedRecord])
 
+    const copyPassword = () => {
+        navigator.clipboard.writeText(record?.password)
+            .then(() => {
+                setIsCopied(true)
+                const timer = setTimeout(() => {
+                    setIsCopied(false)
+                }, 500)
+                return () => clearTimeout(timer)
+            })
+            .catch((err) => {
+                console.error('Failed to copy:', err)
+            })
+    }
 
     return (
         <Stack spacing={5}>
@@ -75,9 +90,12 @@ function RecordDetails() {
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
             <StyledInput variant='outlined' name='title' label='Title' defaultValue={record?.title} onChange={handleChange} />
             <StyledInput variant='outlined' name='login' label='Login' defaultValue={record?.login} onChange={handleChange} />
-            <Stack direction='row' spacing={2}>
-                <StyledInput variant='outlined' name='password' label='Password' defaultValue={record?.password} type={isHidden ? 'password' : 'text'} onChange={handleChange} sx={{ width: '90%' }} />
-                {isHidden ? <VisibilityOffIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} /> : <VisibilityIcon onClick={changeHiddenMode} color='primary' sx={{ alignSelf: 'center', cursor: 'pointer' }} />}
+            <Stack spacing={2}>
+                <StyledInput variant='outlined' name='password' label='Password' defaultValue={record?.password} type={isHidden ? 'password' : 'text'} onChange={handleChange} />
+                <Stack direction='row' spacing={4}>
+                    {isHidden ? <VisibilityOffIcon onClick={changeHiddenMode} color='primary' sx={{ cursor: 'pointer' }} /> : <VisibilityIcon onClick={changeHiddenMode} color='primary' sx={{ cursor: 'pointer' }} />}
+                    {isCopied ? <CheckIcon color='primary' /> : <ContentCopyIcon onClick={copyPassword} color='primary' sx={{ cursor: 'pointer' }} />}
+                </Stack>
             </Stack>
             <StyledInput variant='outlined' name='login_url' label='URL' defaultValue={record?.login_url} onChange={handleChange} />
             {
