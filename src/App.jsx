@@ -96,13 +96,12 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   const token = user?.token
-  //   if (token) {
-  //     const decodedToken = jwtDecode(token)
-  //     if (decodedToken.exp * 1000 < new Date().getTime()) logout()
-  //   }
-  // }, [user, logout])
+  useEffect(() => {
+    const tokenExp = user?.tokenExp
+    if (tokenExp) {
+      if (tokenExp < new Date().getTime()) logout()
+    }
+  }, [user, logout])
 
   const shouldShowNav = user && location.pathname !== '/' && location.pathname !== '/reset-password' && location.pathname !== '/signin' && location.pathname !== '/forgot-password' && location.pathname !== '/privacy' && location.pathname !== '/delete-account'
 
@@ -123,7 +122,7 @@ function App() {
         {shouldShowNav &&
           <Stack spacing={3} width='20%' sx={{ display: { xs: 'none', sm: 'block' } }}>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <Box className='premiumCard' sx={{ width: 200, height: 50, borderRadius: 15, justifySelf: 'center', alignContent: 'center', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
+            <Box className='premiumCard' sx={{ width: { sm: 100, md: 200 }, height: 50, borderRadius: 15, justifySelf: 'center', alignContent: 'center', background: 'linear-gradient(to left bottom, #32376f, #31396f, #313b6f, #313d6f, #313f6f, #384b78, #3f5681, #48628a, #5b7a9d, #7293b1, #8aacc4, #a5c5d7)' }}>
               {user?.subscription.status === "free" ?
                 <Button sx={{ width: '100%', height: '100%', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} onClick={() => { navigate('/upgrade') }}>Upgrade Plan</Button>
                 : <Typography variant='h6' color='primary' sx={{ justifySelf: 'center', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Premium</Typography>}
