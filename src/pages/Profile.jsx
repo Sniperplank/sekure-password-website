@@ -87,7 +87,7 @@ function Profile({ logout }) {
         <Stack spacing={10}>
             <Stack spacing={4}>
                 <Stack spacing={2}>
-                    <Typography variant='h4' color='primary'>Account Info</Typography>
+                    <Typography variant='h5' color='primary'>Account Info</Typography>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                 </Stack>
                 <Typography variant='body1'>Email Address: {user?.email}</Typography>
@@ -95,7 +95,7 @@ function Profile({ logout }) {
             </Stack>
             <Stack spacing={4}>
                 <Stack spacing={2}>
-                    <Typography variant='h4' color='primary'>Data Management</Typography>
+                    <Typography variant='h5' color='primary'>Data Management</Typography>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                 </Stack>
                 {user?.subscription.status === "free" ? <Typography variant='body1'>Upgrade your plan to manage your data</Typography>
@@ -107,7 +107,7 @@ function Profile({ logout }) {
             </Stack>
             <Stack spacing={4}>
                 <Stack spacing={2}>
-                    <Typography variant='h4' color='primary'>Your Plan</Typography>
+                    <Typography variant='h5' color='primary'>Your Plan</Typography>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                 </Stack>
                 <Typography variant='body1'>Current plan: {user?.subscription.status.toUpperCase()} {user?.subscription.cancelAtPeriodEnd && '(Cancelled)'}</Typography>
@@ -127,7 +127,7 @@ function Profile({ logout }) {
             </Stack>
             <Stack spacing={4}>
                 <Stack spacing={2}>
-                    <Typography variant='h4' color='primary'>Account Actions</Typography>
+                    <Typography variant='h5' color='primary'>Account Actions</Typography>
                     <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
                 </Stack>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={5}>

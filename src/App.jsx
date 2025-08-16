@@ -29,6 +29,8 @@ import axios from 'axios'
 import api from './utils/axios'
 import { CardBox } from './StyledComponents/CardBox'
 import UpgradePlan from './pages/UpgradePlan'
+import GeneratePassword from './pages/GeneratePassword'
+import PasswordIcon from '@mui/icons-material/Password'
 
 function App() {
   const { user, setUser, setLoading } = useAuth()
@@ -128,13 +130,15 @@ function App() {
                 : <Typography variant='h6' color='primary' sx={{ justifySelf: 'center', fontWeight: 'bold', textShadow: '2px 2px #32376f' }} >Premium</Typography>}
             </Box>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <StyledButton onClick={() => { navigate('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>{user?.name}</StyledButton>
+            <StyledButton onClick={() => { navigate('/profile') }} startIcon={<AccountBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start', fontSize: 13 }}>{user?.name}</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <StyledButton onClick={() => { navigate('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Your Records</StyledButton>
+            <StyledButton onClick={() => { navigate('/list') }} startIcon={<ViewListIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start', fontSize: 13 }}>Your Records</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <StyledButton onClick={() => { navigate('/add') }} startIcon={<AddBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Add Record</StyledButton>
+            <StyledButton onClick={() => { navigate('/add') }} startIcon={<AddBoxIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start', fontSize: 13 }}>Add Record</StyledButton>
             <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
-            <StyledButton onClick={logout} startIcon={<LogoutIcon color='error' />} sx={{ color: 'primary.main', justifyContent: 'flex-start' }}>Logout</StyledButton>
+            <StyledButton onClick={() => { navigate('/generate-password') }} startIcon={<PasswordIcon />} sx={{ color: 'primary.main', justifyContent: 'flex-start', fontSize: 13 }}>Generate Password</StyledButton>
+            <Divider sx={{ backgroundColor: 'primary.main' }}></Divider>
+            <StyledButton onClick={logout} startIcon={<LogoutIcon color='error' />} sx={{ color: 'primary.main', justifyContent: 'flex-start', fontSize: 13 }}>Logout</StyledButton>
             {
               showScrollTop && (
                 <Button onClick={scrollToTop} sx={{ position: 'fixed', bottom: 20, left: '20vp', backgroundColor: 'primary.main', '&:hover': { backgroundColor: 'primary.dark' }, }} variant="contained" > <ArrowUpwardIcon /> </Button>
@@ -154,6 +158,7 @@ function App() {
             <Route path='/profile' element={<Profile logout={logout} />} />
             <Route path='/delete-account' element={<DeleteAccount logout={logout} />} />
             <Route path='/upgrade' element={<UpgradePlan />} />
+            <Route path='/generate-password' element={<GeneratePassword />} />
           </Routes>
         </Box>
       </Stack>

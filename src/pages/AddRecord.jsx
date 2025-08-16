@@ -53,7 +53,7 @@ function AddRecord() {
             password += charset[randomIndex]
         }
         return password
-    };
+    }
 
     const autofillPassword = () => {
         const generatedPassword = generatePassword()
