@@ -1,1 +1,1 @@
-https://sekure-password.vercel.app
+https://sniperplank.github.io/sekure-password-website/
